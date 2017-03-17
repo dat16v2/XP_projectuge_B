@@ -10,11 +10,11 @@ INSERT INTO `genre` (name) VALUES ('War film');
 INSERT INTO `genre` (name) VALUES ('Science Fiction');
 
 # CREATE SAMPLE RATINGS
-INSERT INTO `genre` (name) VALUES ('3');
-INSERT INTO `genre` (name) VALUES ('8');
-INSERT INTO `genre` (name) VALUES ('12');
-INSERT INTO `genre` (name) VALUES ('16');
-INSERT INTO `genre` (name) VALUES ('18+');
+INSERT INTO `rating` (name) VALUES ('3');
+INSERT INTO `rating` (name) VALUES ('8');
+INSERT INTO `rating` (name) VALUES ('12');
+INSERT INTO `rating` (name) VALUES ('16');
+INSERT INTO `rating` (name) VALUES ('18+');
 
 # CREATE SAMPLE ACTORS.
 INSERT INTO `actor` (first_name, last_name) VALUES ('Leonardo', 'DiCaprio');
