@@ -15,6 +15,16 @@ public class Show {
     private String genre;
     private String image;
 
+    public Show(String title, ArrayList<String> actorsList, int runTime, String ageLimit, String genre, String image)
+    {
+        this.title = title;
+        this.actorsList = actorsList;
+        this.runTime = runTime;
+        this.ageLimit = ageLimit;
+        this.genre = genre;
+        this.image = image;
+    }
+
 
     public String getTitle() {
         return title;
