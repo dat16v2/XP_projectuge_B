@@ -11,5 +11,32 @@ FLUSH PRIVILEGES;
 use xp_projectuge_b;
 
 CREATE TABLE 'show'(
-	id INT NOT NULL AUTO_INCREMENT
+	id INT NOT NULL AUTO_INCREMENT,
+	title VARCHAR(250) NOT NULL,
+	runtime INT,
+	poster_path TEXT
 );
+
+CREATE TABLE 'genre'(
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE 'actor'(
+	id INT NOT NULL AUTO_INCREMENT,
+	first_name VARCHAR(250) NOT NULL,
+	last_name VARCHAR(250) NOT NULL
+);
+
+CREATE TABLE 'show_actor'(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_actor INT NOT NULL,
+	id_show INT NOT NULL
+);
+
+CREATE TABLE 'show_genre'(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_genre INT,
+	id_show INT
+
+)
