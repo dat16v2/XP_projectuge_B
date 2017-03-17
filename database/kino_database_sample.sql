@@ -19,3 +19,7 @@ INSERT INTO `actor` (first_name, last_name) VALUES ('Emma', 'Stone');
 
 # CREATE SHOW
 INSERT INTO `show` (title, runtime, poster_path) VALUES ('Saving Private Ryan', 180, 'imgs/spr180px.jpg');
+SET @show_id = LAST_INSERT_ID();
+INSERT INTO `show_genre` (id_genre, id_show) VALUES (4, @show_id); # ADD GENRE
+INSERT INTO `show_actor` (id_actor, id_show) VALUES (3, @show_id); # ADD ACTOR
+INSERT INTO `show_actor` (id_actor, id_show) VALUES (4, @show_id); # ADD ACTOR

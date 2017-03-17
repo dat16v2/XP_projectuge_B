@@ -24,6 +24,12 @@ CREATE TABLE `genre`(
 	PRIMARY KEY (id)
 );
 
+CREATE TABLE `rating`(
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(250) NOT NULL,
+	PRIMARY KEY (id)
+);
+
 CREATE TABLE `actor`(
 	id INT NOT NULL AUTO_INCREMENT,
 	first_name VARCHAR(250) NOT NULL,
@@ -41,6 +47,13 @@ CREATE TABLE `show_actor`(
 CREATE TABLE `show_genre`(
 	id INT NOT NULL AUTO_INCREMENT,
 	id_genre INT,
+	id_show INT,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE `show_rating`(
+	id INT NOT NULL AUTO_INCREMENT,
+	id_rating INT,
 	id_show INT,
 	PRIMARY KEY (id)
 );
