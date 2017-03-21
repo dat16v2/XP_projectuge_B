@@ -8,15 +8,19 @@ import java.util.ArrayList;
 public class Show {
 
 
+    private int showId;
     private String title;
-    private ArrayList<String> actorsList = new ArrayList<String>();
+    private String actorsList;
+    //private ArrayList<String> actorsList = new ArrayList<String>();
     private int runTime;
     private String ageLimit;
     private String genre;
     private String image;
 
-    public Show(String title, ArrayList<String> actorsList, int runTime, String ageLimit, String genre, String image)
+
+    public Show(int showId, String title, String actorsList, int runTime, String ageLimit, String genre, String image)
     {
+        this.showId = showId;
         this.title = title;
         this.actorsList = actorsList;
         this.runTime = runTime;
@@ -26,6 +30,10 @@ public class Show {
     }
 
 
+    public int getShowId(){return showId;}
+
+    public int setShowId(){return  showId;}
+
     public String getTitle() {
         return title;
     }
@@ -34,11 +42,11 @@ public class Show {
         this.title = title;
     }
 
-    public ArrayList<String> getActorsList() {
+    public String getActorsList() {
         return actorsList;
     }
 
-    public void setActorsList(ArrayList<String> actors) {
+    public void setActorsList(String actors) {
         this.actorsList = actors;
     }
 
