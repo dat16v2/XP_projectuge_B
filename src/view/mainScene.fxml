@@ -10,8 +10,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.Button?>
 
-<BorderPane prefHeight="600.0" minHeight="600" prefWidth="1000.0" minWidth="1000" style="-fx-border-color: #747474; -fx-border-width: 5px;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<BorderPane prefHeight="600.0" minHeight="600" prefWidth="1000.0" minWidth="1000" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
     <top>
         <VBox>
             <!-- MENU BAR -->
@@ -68,6 +70,22 @@
             </HBox>
         </VBox>
     </top>
+
+    <left>
+        <VBox>
+            <!-- EXAMPLE SHOW -->
+            <HBox style="-fx-padding: 0 0 0 20">
+                <children>
+                    <Label text="Placeholder poster here" style="-fx-padding: 0 15 0 0"></Label>
+                    <TextArea style="-fx-max-height: 100px; -fx-min-width: 100px;" text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultrices felis ante, cursus ultricies erat ultricies eu. Integer at consectetur lorem. Fusce maximus sodales turpis, in suscipit ex aliquet eu. Pellentesque sed libero facilisis, cursus nisi nec, lobortis nibh. Curabitur in dapibus libero. Maecenas in nunc egestas, aliquam nulla ac, eleifend ex. Vestibulum pharetra sapien vitae nunc eleifend ornare. Etiam in tellus luctus, dictum justo ac, facilisis libero. Sed vitae convallis tortor, sed egestas tortor. Donec condimentum mauris a iaculis rhoncus."></TextArea>
+                    <HBox style="-fx-spacing: 10px; -fx-padding: 70 0 0 15">
+                        <Button text="modify"></Button>
+                        <Button text="delete"></Button>
+                    </HBox>
+                </children>
+            </HBox>
+        </VBox>
+    </left>
 <!--
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="729.0" VBox.vgrow="ALWAYS">
