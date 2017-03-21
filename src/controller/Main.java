@@ -19,7 +19,7 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
         //VBox showList = (VBox) root.lookup("showList");
 
-        primaryStage.setTitle("Super nice program");
+        primaryStage.setTitle("KinoXP Administration");
         primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.show();
     }
