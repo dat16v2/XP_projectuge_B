@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -16,6 +17,8 @@ public class Main extends Application {
         ps.setMinWidth(1000);
         ps.setMinHeight(600);
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
+        //VBox showList = (VBox) root.lookup("showList");
+
         primaryStage.setTitle("Super nice program");
         primaryStage.setScene(new Scene(root, 1000, 600));
         primaryStage.show();
