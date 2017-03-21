@@ -134,7 +134,7 @@
             </HBox>
             <BorderPane style="-fx-padding: 15 0 0 0">
                 <right>
-                    <Button mnemonicParsing="false" onAction="#switchScene" prefHeight="61.0" prefWidth="162.0" text="Tilføj" />
+                    <Button mnemonicParsing="false" onAction="#switchSceneFX" prefHeight="61.0" prefWidth="162.0" text="Tilføj" />
                 </right>
             </BorderPane>
         </VBox>
