@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
-public class CreateShowController {
+public class CreateShowController implements IController {
     private static CreateShowController instance = new CreateShowController();
     private Scene scene;
 

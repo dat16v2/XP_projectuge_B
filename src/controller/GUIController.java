@@ -14,6 +14,10 @@ public class GUIController {
         Main.ps.setScene(new Scene(newScene, 650, 400));
     }
 
+    public static void switchScene(IController controller) {
+        Main.ps.setScene(controller.getScene());
+    }
+
     public static void mainWindow(ActionEvent actionEvent) throws IOException {
         Main.ps.setScene(MainController.get().getScene());
     }
