@@ -22,7 +22,7 @@ public class Main extends Application {
         //VBox showList = (VBox) root.lookup("showList");
 
         primaryStage.setTitle("KinoXP Administration");
-        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setScene(MainController.get().getScene());
         primaryStage.show();
     }
 
