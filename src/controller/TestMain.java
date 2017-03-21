@@ -15,6 +15,7 @@ public class TestMain
         // DETTE ER ET EKSEMPEL
         Show show = new Show(1, "Rogue One", "listOfActors", 180, "18+", "horror", "lightsaberlul");
 
-        connection.add(show);
+        //connection.add(show);
+        connection.deleteShow(show);
     }
 }

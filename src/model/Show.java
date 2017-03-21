@@ -32,7 +32,7 @@ public class Show {
 
     public int getShowId(){return showId;}
 
-    public int setShowId(){return  showId;}
+    public void setShowId(int showId){this.showId = showId;}
 
     public String getTitle() {
         return title;
