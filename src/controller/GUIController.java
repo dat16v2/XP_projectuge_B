@@ -41,6 +41,7 @@ public class GUIController {
             //alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert2.show();
 
+            // Doesn't work as intended.
             if (alert2.getResult() == ButtonType.OK) {
                 goBackToMain(actionEvent);
 
