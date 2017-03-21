@@ -99,8 +99,8 @@
 
                     <!-- A set of buttons -->
                     <HBox style="-fx-spacing: 10px; -fx-padding: 70 0 0 15">
-                        <Button text="modify"></Button>
-                        <Button text="delete"></Button>
+                        <Button text="Rediger" onAction="#addShowWindowFX"></Button>
+                        <Button text="Slet" onAction="#showAddShowAlert"></Button>
                     </HBox>
                 </children>
             </HBox>
@@ -127,14 +127,14 @@
 
                     <!-- A set of buttons -->
                     <HBox style="-fx-spacing: 10px; -fx-padding: 70 0 0 15">
-                        <Button text="modify"></Button>
-                        <Button text="delete"></Button>
+                        <Button text="Rediger" onAction="#addShowWindowFX" ></Button>
+                        <Button text="Slet" onAction="#showAddShowAlert"></Button>
                     </HBox>
                 </children>
             </HBox>
             <BorderPane style="-fx-padding: 15 0 0 0">
                 <right>
-                    <Button mnemonicParsing="false" onAction="#switchSceneFX" prefHeight="61.0" prefWidth="162.0" text="Tilføj" />
+                    <Button mnemonicParsing="false" onAction="#addShowWindowFX" prefHeight="61.0" prefWidth="162.0" text="Tilføj" />
                 </right>
             </BorderPane>
         </VBox>

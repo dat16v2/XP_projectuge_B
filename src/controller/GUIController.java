@@ -8,12 +8,12 @@ import java.io.IOException;
 
 public class GUIController {
 
-        public static void switchScene(ActionEvent actionEvent) throws IOException {
+        public static void addShowWindow(ActionEvent actionEvent) throws IOException {
             Parent newScene = FXMLLoader.load(Main.cl.getResource("view/addShowScene.fxml"));
             Main.ps.setScene(new Scene(newScene, 650, 400));
         }
 
-        public static void goBackToMain(ActionEvent actionEvent) throws IOException {
+        public static void mainWindow(ActionEvent actionEvent) throws IOException {
             //Parent newScene = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
             Parent newScene = FXMLLoader.load(Main.cl.getResource("view/mainScene.fxml"));
             Main.ps.setScene(new Scene(newScene, 1000, 600));
@@ -24,17 +24,17 @@ public class GUIController {
         view.Alertboxes.showAddShowAlertShow(actionEvent);
     }
 
-    public void switchSceneFX (ActionEvent actionEvent) {
+    public void addShowWindowFX (ActionEvent actionEvent) {
         try {
-            switchScene(actionEvent);
+            addShowWindow(actionEvent);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void goBackToMainFX (ActionEvent actionEvent) {
+    public void mainWindowFX (ActionEvent actionEvent) {
         try {
-            goBackToMain(actionEvent);
+            mainWindow(actionEvent);
         } catch (IOException e) {
             e.printStackTrace();
         }

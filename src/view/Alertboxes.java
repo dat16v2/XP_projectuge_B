@@ -3,12 +3,8 @@ package view;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-
 import java.io.IOException;
 
-/**
- * Created by aimz on 21/03/2017.
- */
 public class Alertboxes {
 
     public static void showAddShowAlertShow(ActionEvent actionEvent) throws IOException {
@@ -24,7 +20,7 @@ public class Alertboxes {
 
             // Doesn't work as intended.
             if (alert2.getResult() == ButtonType.OK) {
-                controller.GUIController.goBackToMain(actionEvent);
+                controller.GUIController.mainWindow(actionEvent);
 
                 // Parent newScene = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
                 // Main.ps.setScene(new Scene(newScene, 1200, 800));
