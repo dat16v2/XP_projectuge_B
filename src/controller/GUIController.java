@@ -27,7 +27,7 @@ public class GUIController {
 
         public void goBackToMain(ActionEvent actionEvent) throws IOException {
             Parent newScene = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
-            Main.ps.setScene(new Scene(newScene, 1200, 800));
+            Main.ps.setScene(new Scene(newScene, 1000, 600));
         }
     public void showAddShowAlert(ActionEvent actionEvent) throws IOException
     {
@@ -43,7 +43,7 @@ public class GUIController {
 
             // Doesn't work as intended.
             if (alert2.getResult() == ButtonType.OK) {
-                controller.GUIController.goBackToMain(actionEvent);
+                goBackToMain(actionEvent);
 
                 // Parent newScene = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
                 // Main.ps.setScene(new Scene(newScene, 1200, 800));
