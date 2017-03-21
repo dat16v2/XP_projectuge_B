@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Show {
 
-
+    private int showId;
     private String title;
     private ArrayList<String> actorsList = new ArrayList<String>();
     private int runTime;
@@ -15,7 +15,18 @@ public class Show {
     private String genre;
     private String image;
 
-    public Show(String title, ArrayList<String> actorsList, int runTime, String ageLimit, String genre, String image)
+    public Show( int showId, String title, ArrayList<String> actorsList, int runTime, String ageLimit, String genre, String image)
+    {
+        this.showId = showId;
+        this.title = title;
+        this.actorsList = actorsList;
+        this.runTime = runTime;
+        this.ageLimit = ageLimit;
+        this.genre = genre;
+        this.image = image;
+    }
+
+    public Show( String title, ArrayList<String> actorsList, int runTime, String ageLimit, String genre, String image)
     {
         this.title = title;
         this.actorsList = actorsList;
@@ -25,6 +36,12 @@ public class Show {
         this.image = image;
     }
 
+
+    public void setShowId(int showId){ this.showId = showId;}
+
+    public int getShowId() {
+        return showId;
+    }
 
     public String getTitle() {
         return title;
