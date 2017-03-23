@@ -128,7 +128,7 @@ public class DatabaseConnection {
             boolean result = statementInsertShow.execute();
 
             if (!result) { // Handle this at some point... TODO
-                System.out.println("Uh ohh...");
+                System.out.println("Uh ohh... check");
             }
 
             // Add actors to show
@@ -221,6 +221,92 @@ public class DatabaseConnection {
         }
 
         return false;
+    }
+
+    public void editShow(Show show, int ID){
+        PreparedStatement statementEditShow;
+        PreparedStatement statementEditShowActor;
+        PreparedStatement statementEditShowGenre;
+        PreparedStatement statementEditShowRating;
+        try {
+            statementEditShow = conn.prepareStatement("UPDATE `show` SET title = ?, runtime = ?, poster_path = ? WHERE id = ?");
+
+            statementEditShow.setString(1, show.getTitle());
+            statementEditShow.setInt(2, show.getRunTime());
+            statementEditShow.setString(3, show.getImage());
+            statementEditShow.setInt(4, ID);
+
+
+            boolean result = statementEditShow.execute();
+
+            if (!result) { // Handle this at some point... TODO
+                System.out.println("Uh ohh...");
+            }
+
+            // Add actors to show
+            statementEditShowActor = conn.prepareStatement("UPDATE show_actor SET id_actor = ? WHERE id_show = ?");
+            for (int i = 0; i < show.getActorList().size(); i++) {
+                Actor actor = show.getActorList().get(i);
+
+                statementEditShowActor.setInt(1, actor.getId());
+                statementEditShowActor.setInt(2, show.getShowId());
+
+                if (!(i + 1 == show.getActorList().size())) {
+                    statementEditShowActor.addBatch();
+                }
+            }
+
+            result = statementEditShowActor.execute();
+
+            if (!result) { // Handle this at some point... TODO
+                System.out.println("Uh ohh...");
+            }
+
+            // Add genres to show
+            statementEditShowGenre = conn.prepareStatement("UPDATE show_genre SET id_genre = ? WHERE id_show = ?");
+            for (int i = 0; i < show.getGenreList().size(); i++) {
+                Genre genre = show.getGenreList().get(i);
+
+                statementEditShowGenre.setInt(1, genre.getId());
+                statementEditShowGenre.setInt(2, show.getShowId());
+
+                if (!(i + 1 == show.getGenreList().size())) {
+                    statementEditShowGenre.addBatch();
+                }
+            }
+
+            result = statementEditShowActor.execute();
+
+            if (!result) { // Handle this at some point... TODO
+                System.out.println("Uh ohh...");
+            }
+
+            statementEditShowRating = conn.prepareStatement("UPDATE show_rating SET id_rating = ? WHERE id_show = ?");
+            statementEditShowRating.setInt(1, show.getAgeLimit().getId());
+            statementEditShowRating.setInt(2, show.getShowId());
+
+            result = statementEditShowRating.execute();
+
+            if (!result) { // Handle this at some point... TODO
+                System.out.println("Uh ohh...");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException ex) {
+            }
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException se) {
+
+            }
+        }
     }
 }
 
