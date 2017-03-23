@@ -2,31 +2,29 @@ package model;
 
 import java.util.ArrayList;
 
-/**
- * Created by x on 17/03/2017.
- */
 public class Show {
-
-
     private int showId;
     private String title;
-    private String actorsList;
-    //private ArrayList<String> actorsList = new ArrayList<String>();
+    private ArrayList<Actor> actorList = new ArrayList<Actor>();
     private int runTime;
-    private String ageLimit;
-    private String genre;
+    private Rating ageLimit = new Rating();
+    private ArrayList<Genre> genreList = new ArrayList<Genre>();
     private String image;
 
 
-    public Show(int showId, String title, String actorsList, int runTime, String ageLimit, String genre, String image)
+    public Show(int showId, String title, ArrayList<Actor> actorList, int runTime, Rating ageLimit, ArrayList<Genre> genre, String image)
     {
         this.showId = showId;
         this.title = title;
-        this.actorsList = actorsList;
+        this.actorList = actorList;
         this.runTime = runTime;
         this.ageLimit = ageLimit;
-        this.genre = genre;
+        this.genreList = genre;
         this.image = image;
+    }
+
+    public Show() {
+
     }
 
 
@@ -42,12 +40,20 @@ public class Show {
         this.title = title;
     }
 
-    public String getActorsList() {
-        return actorsList;
+    public ArrayList<Actor> getActorList() {
+        return actorList;
     }
 
-    public void setActorsList(String actors) {
-        this.actorsList = actors;
+    public void setActorList(ArrayList<Actor> actorList) {
+        this.actorList = actorList;
+    }
+
+    public void addActor(Actor actor) {
+        this.actorList.add(actor);
+    }
+
+    public void addGenre(Genre genre) {
+        this.genreList.add(genre);
     }
 
     public int getRunTime() {
@@ -58,20 +64,20 @@ public class Show {
         this.runTime = runTime;
     }
 
-    public String getAgeLimit() {
+    public Rating getAgeLimit() {
         return ageLimit;
     }
 
-    public void setAgeLimit(String ageLimit) {
+    public void setAgeLimit(Rating ageLimit) {
         this.ageLimit = ageLimit;
     }
 
-    public String getGenre() {
-        return genre;
+    public ArrayList<Genre> getGenreList() {
+        return genreList;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setGenreList(ArrayList<Genre> genreList) {
+        this.genreList = genreList;
     }
 
     public String getImage() {
