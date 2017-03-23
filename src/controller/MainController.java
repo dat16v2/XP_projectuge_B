@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 
 import java.io.IOException;
 
-public class MainController {
+public class MainController implements IController {
     private static MainController instance = new MainController();
     private Scene scene;
 
