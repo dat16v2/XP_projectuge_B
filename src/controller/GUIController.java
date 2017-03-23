@@ -40,4 +40,13 @@ public class GUIController {
         }
     }
 
+    public void goToBooking(ActionEvent actionEvent) {
+        Parent newScene = null;
+        try {
+            newScene = FXMLLoader.load(Main.cl.getResource("view/bookTicket.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Main.ps.setScene(new Scene(newScene, 1000, 600));
+    }
 }
