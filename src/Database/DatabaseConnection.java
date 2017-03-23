@@ -5,13 +5,8 @@ import model.Genre;
 import model.Rating;
 import model.Show;
 
-import javax.xml.transform.Result;
 import java.sql.*;
-import java.util.ArrayList;
 
-/**
- * Created by Martin on 17-03-2017.
- */
 public class DatabaseConnection {
     // Singleton design pattern
 
@@ -53,21 +48,21 @@ public class DatabaseConnection {
 
     public Show get(int id) {
         Show show = null;
-        PreparedStatement STATEMENT_GET_SHOW;
-        PreparedStatement STATEMENT_GET_SHOW_ACTOR;
-        PreparedStatement STATEMENT_GET_SHOW_GENRE;
-        PreparedStatement STATEMENT_GET_SHOW_RATING;
+        PreparedStatement statementGetShow;
+        PreparedStatement statementGetShowActor;
+        PreparedStatement statementGetShowGenre;
+        PreparedStatement statementGetShowRating;
         ResultSet result = null;
 
         try {
-            STATEMENT_GET_SHOW = conn.prepareStatement("SELECT title, runtime, poster_path from `show` WHERE id = ?");
-            STATEMENT_GET_SHOW_ACTOR = conn.prepareStatement("SELECT actor.first_name, actor.last_name, actor.id from actor inner join show_actor on actor.id = show_actor.id_actor WHERE show_actor.id_show=?");
-            STATEMENT_GET_SHOW_GENRE = conn.prepareStatement("SELECT genre.name, genre.id from genre inner join show_genre on genre.id = show_genre.id_genre WHERE show_genre.id_show=?");
-            STATEMENT_GET_SHOW_RATING = conn.prepareStatement("SELECT rating.name, rating.id from rating inner join show_rating on rating.id = show_rating.id_rating WHERE show_rating.id_show=? LIMIT 1");
+            statementGetShow = conn.prepareStatement("SELECT title, runtime, poster_path from `show` WHERE id = ?");
+            statementGetShowActor = conn.prepareStatement("SELECT actor.first_name, actor.last_name, actor.id from actor inner join show_actor on actor.id = show_actor.id_actor WHERE show_actor.id_show=?");
+            statementGetShowGenre = conn.prepareStatement("SELECT genre.name, genre.id from genre inner join show_genre on genre.id = show_genre.id_genre WHERE show_genre.id_show=?");
+            statementGetShowRating = conn.prepareStatement("SELECT rating.name, rating.id from rating inner join show_rating on rating.id = show_rating.id_rating WHERE show_rating.id_show=? LIMIT 1");
 
             // Get initial show data
-            STATEMENT_GET_SHOW.setInt(1, id);
-            result = STATEMENT_GET_SHOW.executeQuery();
+            statementGetShow.setInt(1, id);
+            result = statementGetShow.executeQuery();
 
             // Set initial show data
             show.setShowId(id);
@@ -76,8 +71,8 @@ public class DatabaseConnection {
             show.setImage(result.getString(3));
 
             // Get actors related with show
-            STATEMENT_GET_SHOW_ACTOR.setInt(1, show.getShowId());
-            result = STATEMENT_GET_SHOW_ACTOR.executeQuery();
+            statementGetShowActor.setInt(1, show.getShowId());
+            result = statementGetShowActor.executeQuery();
 
             // Add actors to show
             while (result.next()) {
@@ -91,8 +86,8 @@ public class DatabaseConnection {
             }
 
             // Get genres related to show
-            STATEMENT_GET_SHOW_GENRE.setInt(1, show.getShowId());
-            result = STATEMENT_GET_SHOW_GENRE.executeQuery();
+            statementGetShowGenre.setInt(1, show.getShowId());
+            result = statementGetShowGenre.executeQuery();
 
             // Add genres to show
             while(result.next()) {
@@ -104,7 +99,7 @@ public class DatabaseConnection {
             }
 
             // Get age rating
-            result = STATEMENT_GET_SHOW_RATING.executeQuery();
+            result = statementGetShowRating.executeQuery();
             Rating rating = new Rating();
             rating.setName(result.getString(1));
             rating.setId(result.getInt(2));
@@ -118,35 +113,71 @@ public class DatabaseConnection {
     }
 
     public void add(Show show) {
-        String actorsList = show.getActorsList();
-        int runTime = show.getRunTime();
-        String genre = show.getGenre();
+        PreparedStatement statementInsertShow;
+        PreparedStatement statementInsertShowActor;
+        PreparedStatement statementInsertShowGenre;
+        PreparedStatement statementInsertShowRating;
 
-        ResultSet rs;
-        String sql;
         try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO `show` (title, runtime, poster_path) VALUES (?, ?, ?)");
-            ps.setString(1, show.getTitle());
-            ps.setInt(2, show.getRunTime());
-            ps.setString(3, show.getImage());
+            statementInsertShow = conn.prepareStatement("INSERT INTO `show` (title, runtime, poster_path) VALUES  (? ,? ,?)");
 
-            PreparedStatement ps2 = conn.prepareStatement("INSERT INTO `show_genre` (id_genre, id_show) VALUES ( ?, ? );");
-            ps2.setInt(1, 1);
-            ps2.setInt(2, 2);
+            statementInsertShow.setString(1, show.getTitle());
+            statementInsertShow.setInt(2, show.getRunTime());
+            statementInsertShow.setString(3, show.getImage());
 
-            PreparedStatement ps3 = conn.prepareStatement("INSERT INTO `show_actor` (id_actor, id_show) VALUES (?, ?);");
-            ps3.setInt(1, 1);
-            ps3.setInt(2, 2);
+            boolean result = statementInsertShow.execute();
 
-            PreparedStatement ps4 = conn.prepareStatement("INSERT INTO `show_rating` (id_rating, id_show) VALUES (?, ?);");
-            ps4.setInt(1, 1);
-            ps4.setInt(2, 1);
+            if (!result) { // Handle this at some point... TODO
+                System.out.println("Uh ohh...");
+            }
 
-            //Possibly add boolean result?
-            ps.execute();
-            ps2.execute();
-            ps3.execute();
-            ps4.execute();
+            // Add actors to show
+            statementInsertShowActor = conn.prepareStatement("INSERT into show_actor (id_actor, id_show) VALUES (?, ?)");
+            for (int i = 0; i < show.getActorList().size(); i++) {
+                Actor actor = show.getActorList().get(i);
+
+                statementInsertShowActor.setInt(1, actor.getId());
+                statementInsertShowActor.setInt(2, show.getShowId());
+
+                if (!(i + 1 == show.getActorList().size())) {
+                    statementInsertShowActor.addBatch();
+                }
+            }
+
+            result = statementInsertShowActor.execute();
+
+            if (!result) { // Handle this at some point... TODO
+                System.out.println("Uh ohh...");
+            }
+
+            // Add genres to show
+            statementInsertShowGenre = conn.prepareStatement("INSERT into show_genre (id_genre, id_show) VALUES (?, ?)");
+            for (int i = 0; i < show.getGenreList().size(); i++) {
+                Genre genre = show.getGenreList().get(i);
+
+                statementInsertShowGenre.setInt(1, genre.getId());
+                statementInsertShowGenre.setInt(2, show.getShowId());
+
+                if (!(i + 1 == show.getGenreList().size())) {
+                    statementInsertShowGenre.addBatch();
+                }
+            }
+
+            result = statementInsertShowActor.execute();
+
+            if (!result) { // Handle this at some point... TODO
+                System.out.println("Uh ohh...");
+            }
+
+            statementInsertShowRating = conn.prepareStatement("INSERT INTO show_rating (id_rating, id_show) VALUES (?, ?)");
+            statementInsertShowRating.setInt(1, show.getAgeLimit().getId());
+            statementInsertShowRating.setInt(2, show.getShowId());
+
+            result = statementInsertShowRating.execute();
+
+            if (!result) { // Handle this at some point... TODO
+                System.out.println("Uh ohh...");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -166,45 +197,11 @@ public class DatabaseConnection {
         }
     }
 
-    public void deleteShow(Show show) {
-        String title = show.getTitle();
-        String actorsList = show.getActorsList();
-        int runTime = show.getRunTime();
-        String ageLimit = show.getAgeLimit();
-        String genre = show.getGenre();
-        String image = show.getImage();
-
-        ResultSet rs;
-        String sql;
+    public boolean deleteShow(Show show) {
         try {
-            //String query = "delete from show where title = ?";
-            PreparedStatement preparedStmt = conn.prepareStatement("delete from `show` where title = ?");
-            preparedStmt.setString(1, title);
-            preparedStmt.execute();
-            /*
-            PreparedStatement ps = conn.prepareStatement("SELECT `show` WHERE " + title + "(title, runtime, poster_path) VALUES (?, ?, ?)");
-            ps.setString(1, title);
-            ps.setInt(2, runTime);
-            ps.setString(3, image);
-
-            PreparedStatement ps2 = conn.prepareStatement("INSERT INTO `show_genre` (id_genre, id_show) VALUES ( ?, ? );");
-            ps2.setInt(1, 1);
-            ps2.setInt(2, 2);
-
-            PreparedStatement ps3 = conn.prepareStatement( "INSERT INTO `show_actor` (id_actor, id_show) VALUES (?, ?);");
-            ps3.setInt(1, 1);
-            ps3.setInt(2,2);
-
-            PreparedStatement ps4 = conn.prepareStatement("INSERT INTO `show_rating` (id_rating, id_show) VALUES (?, ?);");
-            ps4.setInt(1,1);
-            ps4.setInt(2,1);
-
-            //Possibly add boolean result?
-            ps.execute();
-            ps2.execute();
-            ps3.execute();
-            ps4.execute();
-            */
+            PreparedStatement preparedStmt = conn.prepareStatement("DELETE FROM `show` WHERE id = ?");
+            preparedStmt.setInt(1, show.getShowId());
+            return preparedStmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -222,6 +219,8 @@ public class DatabaseConnection {
 
             }
         }
+
+        return false;
     }
 }
 
