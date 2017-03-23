@@ -21,7 +21,7 @@ public class CreateShowController implements IController {
     private CreateShowController() {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
+            root = FXMLLoader.load(getClass().getClassLoader().getResource("view/addShowScene.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
