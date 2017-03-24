@@ -10,6 +10,12 @@ FLUSH PRIVILEGES;
 
 use xp_projectuge_b;
 
+CREATE TABLE `reserve`(
+  id INT AUTO_INCREMENT,
+  seatNumber INT
+  PRIMARY KEY(id);
+)
+
 CREATE TABLE `show`(
 	id INT NOT NULL AUTO_INCREMENT,
 	title VARCHAR(250) NOT NULL,

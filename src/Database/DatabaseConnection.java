@@ -1,11 +1,9 @@
 package Database;
 
-import model.Actor;
-import model.Genre;
-import model.Rating;
-import model.Show;
+import model.*;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DatabaseConnection {
     // Singleton design pattern
@@ -43,6 +41,40 @@ public class DatabaseConnection {
             //ResultSet rs = stmt.executeQuery(sql);
         } catch (Exception ex) {
             System.out.println("Does not work." + ex);
+        }
+    }
+
+    public void reserveDB(Reserve reserve, Object[] reserveDBArray){
+        reserveDBArray = reserve.getSeatNumber();
+        PreparedStatement statementInsertSeat;
+        try{
+        for(int i = 1; i < reserveDBArray.length; i++) {
+
+            statementInsertSeat = conn.prepareStatement("UPDATE `reserve` SET seatNumber WHERE id = " + i);
+            statementInsertSeat.executeUpdate();
+
+        }
+
+        } catch (SQLException e){
+
+        }
+        finally {
+            try{
+                if(conn != null) {
+                    conn.close();
+                }
+            }
+            catch (SQLException e) {
+
+            }
+            try{
+                if(stmt != null) {
+                    stmt.close();
+                }
+            }
+            catch(SQLException e){
+
+            }
         }
     }
 
