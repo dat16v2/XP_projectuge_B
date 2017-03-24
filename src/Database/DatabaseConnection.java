@@ -6,6 +6,8 @@ import model.Rating;
 import model.Show;
 
 import java.sql.*;
+import java.util.Collection;
+import java.util.HashSet;
 
 public class DatabaseConnection {
     // Singleton design pattern
@@ -44,6 +46,89 @@ public class DatabaseConnection {
         } catch (Exception ex) {
             System.out.println("Does not work." + ex);
         }
+    }
+
+    public Collection<Show> getShows() {
+        PreparedStatement statementGetShows;
+        HashSet<Show> shows = new HashSet<Show>();
+
+        try {
+            statementGetShows = conn.prepareStatement("SELECT id, title, runtime, poster_path from `show`");
+            ResultSet showsResult = statementGetShows.executeQuery();
+
+            while (showsResult.next()) {
+                Show show = new Show();
+                show.setShowId(showsResult.getInt(1));
+                show.setTitle(showsResult.getString(2));
+                show.setRunTime(showsResult.getInt(3));
+                show.setImage(showsResult.getString(4));
+
+                show = getShowDetails(show);
+
+                shows.add(show);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return shows;
+    }
+
+    public Show getShowDetails(Show show) {
+        PreparedStatement statementGetShowActor;
+        PreparedStatement statementGetShowGenre;
+        PreparedStatement statementGetShowRating;
+        ResultSet result = null;
+
+        try {
+            statementGetShowActor = conn.prepareStatement("SELECT actor.first_name, actor.last_name, actor.id from actor inner join show_actor on actor.id = show_actor.id_actor WHERE show_actor.id_show=?");
+            statementGetShowGenre = conn.prepareStatement("SELECT genre.name, genre.id from genre inner join show_genre on genre.id = show_genre.id_genre WHERE show_genre.id_show=?");
+            statementGetShowRating = conn.prepareStatement("SELECT rating.name, rating.id from rating inner join show_rating on rating.id = show_rating.id_rating WHERE show_rating.id_show=? LIMIT 1");
+
+            // Get actors related with show
+            statementGetShowActor.setInt(1, show.getShowId());
+            result = statementGetShowActor.executeQuery();
+
+            // Add actors to show
+            while (result.next()) {
+                Actor actor = new Actor();
+
+                actor.setId(result.getInt(3));
+                actor.setFirstName(result.getString(1));
+                actor.setLastName(result.getString(2));
+
+                show.addActor(actor);
+            }
+
+            // Get genres related to show
+            statementGetShowGenre.setInt(1, show.getShowId());
+            result = statementGetShowGenre.executeQuery();
+
+            // Add genres to show
+            while(result.next()) {
+                Genre genre = new Genre();
+
+                genre.setId(result.getInt(2));
+                genre.setName(result.getString(1));
+                show.addGenre(genre);
+            }
+
+            // Get age rating
+            statementGetShowRating.setInt(1, show.getShowId());
+            result = statementGetShowRating.executeQuery();
+            if (!result.next()) {
+                System.out.println("Someone was a moron and didn't set a rating.");
+            } else {
+                show.getAgeLimit().setName(result.getString(1));
+                show.getAgeLimit().setId(result.getInt(2));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            System.exit(1);
+        }
+
+        return show;
     }
 
     public Show get(int id) {
