@@ -42,7 +42,7 @@ public class GUIController {
         }
     }
 
-    public void goToBooking(ActionEvent actionEvent) {
+    public static void goToBooking(ActionEvent actionEvent) {
         Parent newScene = null;
         try {
             newScene = FXMLLoader.load(Main.cl.getResource("view/bookTicket.fxml"));
