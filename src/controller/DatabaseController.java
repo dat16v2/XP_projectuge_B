@@ -1,6 +1,7 @@
 package controller;
 
 import Database.DatabaseConnection;
+import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.application.Platform;
 import model.Show;
 
@@ -17,16 +18,26 @@ public class DatabaseController {
 
     }
 
-    public void startBackgroundTask(Task task) {
-        BackgroundThread taskThread = new BackgroundThread(task);
+    public <T> void startBackgroundTask(Task task, T payload) {
+        BackgroundThread<T> taskThread = new BackgroundThread(task, payload);
         Platform.runLater(taskThread);
     }
 
-    public class BackgroundThread extends Thread {
+    public void startBackgroundTask(Task task) {
+        startBackgroundTask(task, null);
+    }
+
+    public class BackgroundThread<T> extends Thread {
         private Task task;
+        private T payload = null;
 
         public BackgroundThread(Task task) {
             this.task = task;
+        }
+
+        public BackgroundThread(Task task, T payload) {
+            this.task = task;
+            this.payload = payload;
         }
 
         @Override
@@ -36,16 +47,25 @@ public class DatabaseController {
 
         private void runInJavaFXThread() {
             switch (task) {
-                case UPDATE_SHOW_VIEW:
+                case UPDATE_INITIAL_SHOW_VIEW:
                     HashSet<Show> shows = (HashSet) DatabaseConnection.getInstance().getShows();
-
                     MainController.get().addShows(shows);
                     break;
+                case REMOVE_SHOW_FROM_VIEW:
+                    if (!(payload instanceof Show)) {
+                        throw new IllegalArgumentException("Show was not provided as parameter to REMOVE_SHOW_FROM_VIEW TASK");
+                    }
+
+                    DatabaseConnection.getInstance().deleteShow((Show) payload); // Remove show from DB
+                    MainController.get().removeShow(((Show) payload).getShowId()); // Remove show from local cache
+                    break;
+
             }
         }
     }
 
     public enum Task {
-        UPDATE_SHOW_VIEW
+        UPDATE_INITIAL_SHOW_VIEW,
+        REMOVE_SHOW_FROM_VIEW
     }
 }

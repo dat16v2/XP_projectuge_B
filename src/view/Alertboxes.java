@@ -1,8 +1,11 @@
 package view;
 
+import controller.DatabaseController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import model.Show;
+
 import java.io.IOException;
 
 public class Alertboxes {
@@ -14,7 +17,7 @@ public class Alertboxes {
 
         if (alert.getResult() == ButtonType.YES) {
             alert.close();
-            Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Nu er filmen tilføjet", ButtonType.OK);
+            Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Nu er forestillingen tilføjet", ButtonType.OK);
             //alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
             alert2.show();
 
@@ -29,6 +32,21 @@ public class Alertboxes {
         } else if (alert.getResult() == ButtonType.NO) {
             alert.close();
         }
+    }
 
+    public static void showRemoveShowAlertShow(Show show) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Er du sikker på at du vil slette denne forestilling?", ButtonType.YES, ButtonType.NO);
+
+        alert.showAndWait();
+
+        switch (alert.getResult().getButtonData()) {
+            case YES:
+                DatabaseController.getInstance().startBackgroundTask(DatabaseController.Task.REMOVE_SHOW_FROM_VIEW, show);
+                alert.close();
+                break;
+            case NO:
+                alert.close();
+                break;
+        }
     }
 }
