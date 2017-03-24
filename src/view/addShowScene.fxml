@@ -58,7 +58,7 @@
         </MenuBar>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="454.0" prefWidth="758.0" VBox.vgrow="ALWAYS">
             <children>
-                <Button layoutX="521.0" layoutY="354.0" mnemonicParsing="false" onAction="#showAddShowAlert" prefHeight="39.0" prefWidth="77.0" text="Tilføj" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="42.0" />
+                <Button layoutX="521.0" layoutY="385.0" mnemonicParsing="false" onAction="#showAddShowAlert" prefHeight="39.0" prefWidth="77.0" text="Tilføj" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="29.0" />
                 <Text fill="#f4c542" layoutX="45.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGO" AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="2.630859375">
                     <font>
                         <Font name="Impact" size="42.0" />
@@ -68,7 +68,7 @@
                 <TextField layoutX="130.0" layoutY="92.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="92.0" />
                 <TextField layoutX="130.0" layoutY="124.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="124.0" />
                 <Button layoutX="130.0" layoutY="220.0" mnemonicParsing="false" text="Vælg fil" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="220.0" />
-                <Button layoutX="29.0" layoutY="385.0" mnemonicParsing="false" onAction="#mainWindowFX" prefHeight="39.0" prefWidth="77.0" text="Anuller" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="29.0" />
+                <Button layoutX="50.0" layoutY="385.0" mnemonicParsing="false" onAction="#mainWindowFX" prefHeight="39.0" prefWidth="77.0" text="Anuller" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="29.0" />
                 <Label layoutX="35.0" layoutY="60.0" prefHeight="17.0" prefWidth="72.0" text="Titel" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="60.0" />
                 <Label layoutX="35.0" layoutY="92.0" prefHeight="17.0" prefWidth="72.0" text="Skuespillere" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="92.0" />
                 <Label layoutX="35.0" layoutY="124.0" prefHeight="17.0" prefWidth="72.0" text="Spilletid" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="124.0" />
