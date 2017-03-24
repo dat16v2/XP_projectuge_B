@@ -39,6 +39,17 @@ public class MainController implements IController {
         drawShowListView();
     }
 
+    public void addShows(Collection<Show> shows) {
+        Iterator<Show> it = shows.iterator();
+
+        while (it.hasNext()) {
+            Show show = it.next();
+            this.shows.put(show.getShowId(), show);
+        }
+
+        drawShowListView();
+    }
+
     public void removeShow(int showId) {
         shows.remove(showId);
         drawShowListView();
@@ -124,41 +135,8 @@ public class MainController implements IController {
         Main.ps.addEventHandler(javafx.stage.WindowEvent.WINDOW_SHOWING, new EventHandler<javafx.stage.WindowEvent>() {
             @Override
             public void handle(javafx.stage.WindowEvent event) {
-                Show demoShow = new Show();
-                demoShow.setShowId(1);
-                demoShow.setImage("/imgs/saving-private-ryan.jpg");
-                demoShow.setTitle("Saving Private Ryan");
-                demoShow.setRunTime(180);
-
-                Show demoShow2 = new Show();
-                demoShow2.setShowId(2);
-                demoShow2.setImage("/imgs/logan.jpg");
-                demoShow2.setTitle("Logan");
-                demoShow2.setRunTime(140);
-
-                Show demoShow4 = new Show();
-                demoShow4.setShowId(4);
-                demoShow4.setImage("/imgs/logan.jpg");
-                demoShow4.setTitle("Phuong /r/gonewild");
-                demoShow4.setRunTime(169);
-
-                Show demoShow3 = new Show();
-                demoShow3.setShowId(3);
-                demoShow3.setImage("/imgs/saving-private-ryan.jpg");
-                demoShow3.setTitle("Phuong /r/gonewild");
-                demoShow3.setRunTime(169);
-
-                Show demoShow5 = new Show();
-                demoShow5.setShowId(5);
-                demoShow5.setImage("/imgs/saving-private-ryan.jpg");
-                demoShow5.setTitle("Phuong /r/gonewild");
-                demoShow5.setRunTime(169);
-
-                addShow(demoShow2);
-                addShow(demoShow);
-                addShow(demoShow3);
-                addShow(demoShow4);
-                addShow(demoShow5);
+                DatabaseController.getInstance().
+                        startBackgroundTask(DatabaseController.Task.UPDATE_SHOW_VIEW);
             }
         });
 

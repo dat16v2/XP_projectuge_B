@@ -18,8 +18,6 @@ public class Main extends Application {
         ps.setMinWidth(1000);
         ps.setMinHeight(600);
         cl = getClass().getClassLoader();
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
-        //VBox showList = (VBox) root.lookup("showList");
 
         primaryStage.setTitle("KinoXP Administration");
         primaryStage.setScene(MainController.get().getScene());
