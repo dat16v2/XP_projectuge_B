@@ -91,11 +91,11 @@
                         <MenuItem mnemonicParsing="false" text="Gyser" />
                     </items>
                 </MenuButton>
-            <Label layoutX="452.0" layoutY="92.0" text="Sal" AnchorPane.rightAnchor="291.0" AnchorPane.topAnchor="92.0" />
-            <Label layoutX="452.0" layoutY="124.0" text="Afspilningsdato" AnchorPane.rightAnchor="224.0" AnchorPane.topAnchor="124.0" />
-            <DatePicker layoutX="547.0" layoutY="124.0" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="124.0" />
-            <Label layoutX="452.0" layoutY="156.0" text="Tidspunkt" AnchorPane.rightAnchor="254.0" AnchorPane.topAnchor="156.0" />
-            <MenuButton alignment="CENTER" layoutX="547.0" layoutY="156.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Vælg tidspunkt" textAlignment="CENTER" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="156.0">
+            <Label layoutX="441.0" layoutY="99.0" text="Sal" AnchorPane.rightAnchor="299.0" AnchorPane.topAnchor="99.0" />
+            <Label layoutX="439.0" layoutY="129.0" text="Afspilningsdato" AnchorPane.rightAnchor="224.0" AnchorPane.topAnchor="129.0" />
+            <DatePicker layoutX="547.0" layoutY="124.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="124.0" />
+            <Label layoutX="439.0" layoutY="159.0" text="Tidspunkt" AnchorPane.rightAnchor="258.0" AnchorPane.topAnchor="159.0" />
+            <MenuButton alignment="CENTER" layoutX="547.0" layoutY="156.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="194.0" text="Vælg tidspunkt" textAlignment="CENTER" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="156.0">
                <items>
                   <MenuItem mnemonicParsing="false" text="14:00" />
                   <MenuItem mnemonicParsing="false" text="14:30" />
@@ -116,9 +116,9 @@
                   <MenuItem mnemonicParsing="false" text="22:00" />
                </items>
             </MenuButton>
-            <ToggleButton layoutX="547.0" layoutY="92.0" mnemonicParsing="false" text="Sal 1" AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="92.0" />
-            <ToggleButton layoutX="679.0" layoutY="92.0" mnemonicParsing="false" text="Sal 2" AnchorPane.rightAnchor="104.0" AnchorPane.topAnchor="92.0" />
-            <Label layoutX="452.0" layoutY="60.0" text="Vælg sal og dato for én afspilning:" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="60.0" />
+            <ToggleButton layoutX="548.0" layoutY="92.0" mnemonicParsing="false" text="Sal 1" AnchorPane.rightAnchor="164.0" AnchorPane.topAnchor="92.0" />
+            <ToggleButton layoutX="691.0" layoutY="92.0" mnemonicParsing="false" text="Sal 2" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="92.0" />
+            <Label layoutX="539.0" layoutY="60.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" text="Vælg sal og dato for én afspilning:" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="60.0" />
             </children>
         </AnchorPane>
     </children>
