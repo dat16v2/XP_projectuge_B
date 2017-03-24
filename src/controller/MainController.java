@@ -9,10 +9,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Show;
+import view.Alertboxes;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -120,6 +122,13 @@ public class MainController implements IController {
             Button delete = new Button();
             delete.setText("Slet");
 
+            delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    Alertboxes.showRemoveShowAlertShow(show);
+                }
+            });
+
             Button book = new Button("Book");
 
             buttonsBox.getChildren().addAll(edit, delete, book);
@@ -145,7 +154,7 @@ public class MainController implements IController {
             @Override
             public void handle(javafx.stage.WindowEvent event) {
                 DatabaseController.getInstance().
-                        startBackgroundTask(DatabaseController.Task.UPDATE_SHOW_VIEW);
+                        startBackgroundTask(DatabaseController.Task.UPDATE_INITIAL_SHOW_VIEW);
             }
         });
 
