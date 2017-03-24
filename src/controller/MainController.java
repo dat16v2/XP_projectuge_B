@@ -71,7 +71,6 @@ public class MainController implements IController {
         while (it.hasNext()) {
             Show show = (Show) it.next();
             counter++;
-            System.out.printf("%d, %s, %d\n", show.getShowId(), show.getTitle(), counter);
 
             HBox showLayout = new HBox();
             if (counter != 1) {
@@ -84,8 +83,12 @@ public class MainController implements IController {
             Pane imagePane = new Pane();
             imagePane.setStyle("-fx-padding: 0 15 0 0");
 
-            System.out.println(show.getImage());
-            Image posterImage = new Image(show.getImage());
+            Image posterImage;
+            try {
+                posterImage = new Image(show.getImage());
+            } catch (IllegalArgumentException ex) {
+                posterImage = new Image("/imgs/logan.jpg");
+            }
             ImageView imageView = new ImageView();
             imageView.setFitWidth(80);
             imageView.setFitHeight(100);
