@@ -115,16 +115,22 @@ public class MainController implements IController {
             buttonsBox.setStyle("-fx-spacing: 10px; -fx-padding: 70 0 0 15");
 
             Button edit = new Button();
-            edit.setText("Redigere");
+            edit.setText("Rediger");
 
             Button delete = new Button();
             delete.setText("Slet");
 
-            buttonsBox.getChildren().addAll(edit, delete);
+            Button book = new Button("Book");
+
+            buttonsBox.getChildren().addAll(edit, delete, book);
 
             // All everything to children.. "children"
             showLayout.getChildren().addAll(imagePane, description, buttonsBox);
             showList.getChildren().add(showLayout);
+
+            book.setOnAction(e -> {
+                GUIController.goToBooking(e);
+        });
         }
     }
 
