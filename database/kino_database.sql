@@ -15,6 +15,7 @@ CREATE TABLE `show`(
 	title VARCHAR(250) NOT NULL,
 	runtime INT,
 	poster_path TEXT,
+	last_updated TIMESTAMP,
 	PRIMARY KEY (id)
 );
 

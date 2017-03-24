@@ -76,7 +76,7 @@
     </top>
 
     <left>
-        <VBox style="-fx-padding: 0 0 0 30" fx:id="showList">
+        <VBox style="-fx-padding: 0 0 0 30" fx:id="#showList">
             <!-- EXAMPLE SHOW -->
             <HBox style="-fx-padding: 0 0 0 20">
                 <children>
