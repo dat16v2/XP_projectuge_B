@@ -10,17 +10,17 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
     public static Stage ps;
+    public static ClassLoader cl;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         ps = primaryStage;
         ps.setMinWidth(1000);
         ps.setMinHeight(600);
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
-        //VBox showList = (VBox) root.lookup("showList");
+        cl = getClass().getClassLoader();
 
-        primaryStage.setTitle("Super nice program");
-        primaryStage.setScene(new Scene(root, 1000, 600));
+        primaryStage.setTitle("KinoXP Administration");
+        primaryStage.setScene(MainController.get().getScene());
         primaryStage.show();
     }
 
