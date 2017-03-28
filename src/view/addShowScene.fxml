@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.BorderPane?>
 
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <BorderPane prefHeight="600.0" minHeight="600" prefWidth="1000.0" minWidth="1000" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
     <top>
         <HBox>
@@ -64,6 +65,11 @@
     <left>
         <VBox>
             <children>
+                <Pane>
+                    <children>
+                        <Button onAction="#showAddShowAlert" prefHeight="39.0" prefWidth="77.0" text="Tilføj" />
+                    </children>
+                </Pane>
                 <!--
                 <AnchorPane prefHeight="454.0" prefWidth="758.0" VBox.vgrow="ALWAYS">
                     <children>
