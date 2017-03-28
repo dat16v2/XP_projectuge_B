@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import view.Alertboxes;
 
 import java.io.IOException;
 
@@ -14,16 +16,17 @@ public class GUIController {
         Main.ps.setScene(new Scene(newScene, 650, 400));
     }
 
-    public static void switchScene(IController controller) {
-        Main.ps.setScene(controller.getScene());
-    }
-
     public static void mainWindow(ActionEvent actionEvent) throws IOException {
         Main.ps.setScene(MainController.get().getScene());
     }
 
     public void showAddShowAlert(ActionEvent actionEvent) throws IOException {
         view.Alertboxes.showAddShowAlertShow(actionEvent);
+    }
+
+    public static void editShowWindow(MouseEvent actionEvent) throws IOException {
+        Parent newScene = FXMLLoader.load(Main.cl.getResource("view/editShowScene.fxml"));
+        Main.ps.setScene(new Scene(newScene, 650, 400));
     }
 
     public void addShowWindowFX(ActionEvent actionEvent) {
@@ -50,5 +53,13 @@ public class GUIController {
             e.printStackTrace();
         }
         Main.ps.setScene(new Scene(newScene, 1000, 600));
+    }
+
+    public void showEditShowAlertShow(ActionEvent actionEvent) throws IOException {
+        Alertboxes.editShowAlertShow(actionEvent);
+    }
+
+    public void showBookTicketAlertbox(ActionEvent actionEvent) throws IOException {
+        Alertboxes.bookTicketAlertbox(actionEvent);
     }
 }

@@ -153,7 +153,7 @@
    <right>
       <Pane prefHeight="457.0" prefWidth="504.0" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="362.0" layoutY="384.0" mnemonicParsing="false" onAction="#mainWindowFX" prefHeight="38.0" prefWidth="103.0" text="Book" />
+            <Button layoutX="362.0" layoutY="384.0" mnemonicParsing="false" onAction="#showBookTicketAlertbox" prefHeight="38.0" prefWidth="103.0" text="Book" />
          </children></Pane>
    </right>
 </BorderPane>

@@ -1,6 +1,7 @@
 package view;
 
 import controller.DatabaseController;
+import controller.GUIController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -12,24 +13,29 @@ public class Alertboxes {
 
     public static void showAddShowAlertShow(ActionEvent actionEvent) throws IOException {
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Er du sikker på at tilføje" + " ?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Er du sikker på at tilføje?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
             alert.close();
             Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Nu er forestillingen tilføjet", ButtonType.OK);
-            //alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-            alert2.show();
+            alert2.showAndWait();
 
-            // Doesn't work as intended.
             if (alert2.getResult() == ButtonType.OK) {
                 controller.GUIController.mainWindow(actionEvent);
-
-                // Parent newScene = FXMLLoader.load(getClass().getClassLoader().getResource("view/mainScene.fxml"));
-                // Main.ps.setScene(new Scene(newScene, 1200, 800));
-
             }
         } else if (alert.getResult() == ButtonType.NO) {
+            alert.close();
+        }
+    }
+
+    public static void showErrorAlertBox(ActionEvent actionEvent) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.ERROR, "Der skete en fejl!\n" +
+                "Tjek venligst de indtastede informationer og prøv igen", ButtonType.OK);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.OK) {
             alert.close();
         }
     }
@@ -49,4 +55,43 @@ public class Alertboxes {
                 break;
         }
     }
+
+    public static void editShowAlertShow(ActionEvent actionEvent) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Er du sikker på at ændre denne forestilling?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            alert.close();
+
+            Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Nu er forestillingen ændret!", ButtonType.OK);
+            alert2.showAndWait();
+
+            if (alert2.getResult() == ButtonType.OK) {
+                GUIController.mainWindow(actionEvent);
+            }
+        } else if (alert.getResult() == ButtonType.NO) {
+            alert.close();
+        }
+    }
+
+    public static void bookTicketAlertbox(ActionEvent actionEvent) throws IOException {
+
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Er du sikker på at booke denne billet?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            alert.close();
+
+            Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Booking er nu gennemført!", ButtonType.OK);
+            alert2.showAndWait();
+
+            if (alert2.getResult() == ButtonType.OK) {
+                GUIController.mainWindow(actionEvent);
+            }
+        } else if (alert.getResult() == ButtonType.NO) {
+            alert.close();
+        }
+    }
+
 }

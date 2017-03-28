@@ -64,7 +64,7 @@
                         <Font name="Impact" size="42.0" />
                     </font>
                 </Text>
-                <TextField layoutX="130.0" layoutY="60.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="60.0" />
+                <TextField fx:id="titleLabel" layoutX="130.0" layoutY="60.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="60.0" />
                 <TextField layoutX="130.0" layoutY="92.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="92.0" />
                 <TextField layoutX="130.0" layoutY="124.0" prefHeight="25.0" prefWidth="296.0" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="124.0" />
                 <Button layoutX="130.0" layoutY="220.0" mnemonicParsing="false" text="Vælg fil" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="220.0" />
