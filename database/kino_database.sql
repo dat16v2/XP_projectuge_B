@@ -19,6 +19,7 @@ CREATE TABLE `show`(
 	id_auditorium INT,
 	`date` DATE,
 	`time` TIME,
+	reserved_seats INT,
 	PRIMARY KEY (id)
 );
 
@@ -90,6 +91,6 @@ CREATE TABLE `showing`(
 	`date` DATE,
 	`time` TIME,
 	id_auditorium INT,
-
+	reserved_seats INT,
 	PRIMARY KEY (id)
 );
