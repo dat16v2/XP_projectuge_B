@@ -18,7 +18,7 @@ public class Alertboxes {
 
         if (alert.getResult() == ButtonType.YES) {
 
-            if (!GUIController.checkTitle()) {
+            if (!GUIController.validateAddShowFields()) {
                 return;
             } else {
                 alert.close();

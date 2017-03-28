@@ -1,18 +1,19 @@
 package controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import view.Alertboxes;
-
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
-public class GUIController {
+public class GUIController extends Component {
 
     public static Scene addShowWindow;
 
@@ -52,17 +53,18 @@ public class GUIController {
     }
 
 
-    public static boolean checkTitle() throws IOException {
+    public static boolean validateAddShowFields() throws IOException {
         AnchorPane ap = (AnchorPane) GUIController.addShowWindow.lookup("#weirdAnchorPane");
         TextField titleLabelField = (TextField) ap.lookup("#titleLabel");
-        if (titleLabelField.getText().equals(""))
+        TextField actorLabelField = (TextField) ap.lookup("#actorLabel");
+        TextField timeLabelField = (TextField) ap.lookup("#timeLabel");
+        if (titleLabelField.getText().equals("") || actorLabelField.getText().equals("") || timeLabelField.getText().equals(""))
         {
             Alertboxes.showErrorAlertBox();
             return false;
         } else
             return true;
     }
-
 
 
     public static void goToBooking(ActionEvent actionEvent) {
@@ -81,5 +83,11 @@ public class GUIController {
 
     public void showBookTicketAlertbox(ActionEvent actionEvent) throws IOException {
         Alertboxes.bookTicketAlertbox(actionEvent);
+    }
+
+    public void choosePictureFromFile(ActionEvent actionEvent) {
+        FileChooser fileChooser = new FileChooser();
+        File selectedFile = fileChooser.showOpenDialog(null);
+        System.out.println("File selected: " + selectedFile.getName());
     }
 }
