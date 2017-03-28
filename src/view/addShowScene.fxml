@@ -56,7 +56,7 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="454.0" prefWidth="758.0" VBox.vgrow="ALWAYS">
+        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="454.0" prefWidth="758.0" VBox.vgrow="ALWAYS" fx:id="weirdAnchorPane">
             <children>
                 <Button layoutX="521.0" layoutY="385.0" mnemonicParsing="false" onAction="#showAddShowAlert" prefHeight="39.0" prefWidth="77.0" text="Tilføj" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="29.0" />
                 <Text fill="#f4c542" layoutX="45.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGO" AnchorPane.leftAnchor="45.0" AnchorPane.topAnchor="2.630859375">

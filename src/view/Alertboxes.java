@@ -17,19 +17,25 @@ public class Alertboxes {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-            alert.close();
-            Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Nu er forestillingen tilføjet", ButtonType.OK);
-            alert2.showAndWait();
 
-            if (alert2.getResult() == ButtonType.OK) {
-                controller.GUIController.mainWindow(actionEvent);
-            }
+            if (!GUIController.checkTitle()) {
+                return;
+            } else {
+                alert.close();
+                Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION, "Nu er forestillingen tilføjet", ButtonType.OK);
+                alert2.showAndWait();
+
+                if (alert2.getResult() == ButtonType.OK) {
+                    controller.GUIController.mainWindow(actionEvent);
+                }
+
+              }
         } else if (alert.getResult() == ButtonType.NO) {
             alert.close();
         }
     }
 
-    public static void showErrorAlertBox(ActionEvent actionEvent) throws IOException {
+    public static void showErrorAlertBox() throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.ERROR, "Der skete en fejl!\n" +
                 "Tjek venligst de indtastede informationer og prøv igen", ButtonType.OK);

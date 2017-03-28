@@ -1,19 +1,25 @@
 package controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import view.Alertboxes;
 
 import java.io.IOException;
 
 public class GUIController {
 
+    public static Scene addShowWindow;
+
     public static void addShowWindow(ActionEvent actionEvent) throws IOException {
         Parent newScene = FXMLLoader.load(Main.cl.getResource("view/addShowScene.fxml"));
-        Main.ps.setScene(new Scene(newScene, 650, 400));
+        addShowWindow = new Scene(newScene, 650, 400);
+        Main.ps.setScene(addShowWindow);
     }
 
     public static void mainWindow(ActionEvent actionEvent) throws IOException {
@@ -44,6 +50,20 @@ public class GUIController {
             e.printStackTrace();
         }
     }
+
+
+    public static boolean checkTitle() throws IOException {
+        AnchorPane ap = (AnchorPane) GUIController.addShowWindow.lookup("#weirdAnchorPane");
+        TextField titleLabelField = (TextField) ap.lookup("#titleLabel");
+        if (titleLabelField.getText().equals(""))
+        {
+            Alertboxes.showErrorAlertBox();
+            return false;
+        } else
+            return true;
+    }
+
+
 
     public static void goToBooking(ActionEvent actionEvent) {
         Parent newScene = null;
