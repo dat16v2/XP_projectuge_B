@@ -15,6 +15,9 @@ CREATE TABLE `show`(
 	title VARCHAR(250) NOT NULL,
 	runtime INT,
 	poster_path TEXT,
+  id_auditorium INT,
+  `date` DATE,
+  `time` TIME,
 	PRIMARY KEY (id)
 );
 
