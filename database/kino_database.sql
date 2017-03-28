@@ -16,9 +16,9 @@ CREATE TABLE `show`(
 	runtime INT,
 	poster_path TEXT,
 	last_updated TIMESTAMP,
-  id_auditorium INT,
-  `date` DATE,
-  `time` TIME,
+	id_auditorium INT,
+	`date` DATE,
+	`time` TIME,
 	PRIMARY KEY (id)
 );
 
