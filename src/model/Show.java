@@ -11,6 +11,10 @@ public class Show {
     private HashMap<Integer, Genre> genreList = new HashMap<Integer, Genre>();
     private String image;
 
+    public Show(String title, String actor, String time) {
+        System.out.println(title + actor + time);
+    }
+
 
     public Show(int showId, String title, HashMap<Integer, Actor> actorList, int runTime, Rating ageLimit, HashMap<Integer, Genre> genre, String image)
     {

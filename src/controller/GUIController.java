@@ -10,6 +10,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import model.Show;
 import view.Alertboxes;
+
+import javax.xml.soap.Text;
 import java.io.File;
 import java.io.IOException;
 
@@ -24,12 +26,12 @@ public class GUIController {
         Main.ps.setScene(controller.getScene());
     }
 
-    public static void mainWindow(ActionEvent actionEvent) throws IOException {
+    public static void mainWindow() throws IOException {
         Main.ps.setScene(MainController.get().getScene());
     }
 
-    public void showAddShowAlert(ActionEvent actionEvent) throws IOException {
-        view.Alertboxes.showAddShowAlertShow(actionEvent);
+    public void showAddShowAlert() throws IOException {
+        //view.Alertboxes.showAddShowAlertShow();
     }
 
     public static void editShowWindow(MouseEvent actionEvent) throws IOException {
@@ -47,7 +49,7 @@ public class GUIController {
 
     public void mainWindowFX(ActionEvent actionEvent) {
         try {
-            mainWindow(actionEvent);
+            mainWindow();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -56,22 +58,30 @@ public class GUIController {
 
 
     public static boolean validateAddShowFields() throws IOException {
-        String title = String.valueOf(CreateShowController.get().getScene().lookup("#titleLabel"));
-        String actor = String.valueOf(CreateShowController.get().getScene().lookup("#actorLabel"));
-        String time = String.valueOf(CreateShowController.get().getScene().lookup("#timeLabel"));
+        TextField titleLabel = (TextField) CreateShowController.get().getScene().lookup("#titleField");
+        String title = titleLabel.getText();
+
+        TextField actorLabel = (TextField) CreateShowController.get().getScene().lookup("#actorField");
+        String actor = actorLabel.getText();
+
+        TextField timeLabel = (TextField) CreateShowController.get().getScene().lookup("#runtimeField");
+        String time = timeLabel.getText();
+
+        System.out.println(timeLabel.getText());
 
 
-        if (title.equals("null") || actor.equals("null") || time.equals("null"))
+        if (title.equals("") || actor.equals("") || time.equals(""))
         {
             Alertboxes.showErrorAlertBox();
             return false;
         } else
          //   DatabaseController.getInstance().startBackgroundTask();
-            createNewShowFromShowScene(title, actor, time);
+
+        createNewShowFromShowScene(title, actor, time);
         return true;
     }
 
-    private static void createNewShowFromShowScene(String title, String actor, String time) {
+    public static void createNewShowFromShowScene(String title, String actor, String time) {
         Show show = new Show(title, actor, time);
 
     }

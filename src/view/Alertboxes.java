@@ -2,6 +2,7 @@ package view;
 
 import controller.DatabaseController;
 import controller.GUIController;
+import controller.ShowController;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -11,14 +12,14 @@ import java.io.IOException;
 
 public class Alertboxes {
 
-    public static void showAddShowAlertShow(ActionEvent actionEvent) throws IOException {
+    public static void showAddShowAlertShow(ShowController sc) throws IOException {
 
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Er du sikker på at tilføje?", ButtonType.YES, ButtonType.NO);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
 
-            if (!GUIController.validateAddShowFields()) {
+            if (!sc.validateAddShowFields()) {
                 return;
             } else {
                 alert.close();
@@ -26,7 +27,7 @@ public class Alertboxes {
                 alert2.showAndWait();
 
                 if (alert2.getResult() == ButtonType.OK) {
-                    controller.GUIController.mainWindow(actionEvent);
+                    controller.GUIController.mainWindow();
                 }
 
               }
@@ -74,7 +75,7 @@ public class Alertboxes {
             alert2.showAndWait();
 
             if (alert2.getResult() == ButtonType.OK) {
-                GUIController.mainWindow(actionEvent);
+                GUIController.mainWindow();
             }
         } else if (alert.getResult() == ButtonType.NO) {
             alert.close();
@@ -93,7 +94,7 @@ public class Alertboxes {
             alert2.showAndWait();
 
             if (alert2.getResult() == ButtonType.OK) {
-                GUIController.mainWindow(actionEvent);
+                GUIController.mainWindow();
             }
         } else if (alert.getResult() == ButtonType.NO) {
             alert.close();

@@ -132,11 +132,10 @@ public class MainController implements IController {
             edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    try {
-                        GUIController.editShowWindow(event);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                        IController ic = new ShowController(ShowController.Action.EDIT, show);
+                        Main.ps.setScene(ic.getScene());
+                        //GUIController.editShowWindow(event);
+
                 }
             });
 

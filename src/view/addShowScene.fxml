@@ -1,27 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleButton?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.BorderPane?>
 
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.collections.FXCollections?>
-<?import java.lang.String?>
-<BorderPane prefHeight="600.0" minHeight="600" prefWidth="1000.0" minWidth="1000" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<BorderPane minHeight="600" minWidth="1000" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
     <top>
         <VBox>
             <children>
@@ -89,7 +85,7 @@
                 <HBox>
                     <children>
                         <Label prefHeight="17.0" prefWidth="90.0" text="Titel" />
-                        <TextField prefHeight="25.0" prefWidth="296.0" fx:id="titleField" />
+                        <TextField fx:id="titleField" prefHeight="25.0" prefWidth="296.0" />
                     </children>
                 </HBox>
 
@@ -98,7 +94,7 @@
                 <HBox style="-fx-padding: 15 0 0 0">
                     <children>
                         <Label prefHeight="17.0" prefWidth="90.0" text="Skuespillere" />
-                        <TextField prefHeight="25.0" prefWidth="296.0" fx:id="actorField" />
+                        <TextField fx:id="actorField" prefHeight="25.0" prefWidth="296.0" />
                     </children>
                 </HBox>
 
@@ -107,7 +103,7 @@
                 <HBox style="-fx-padding: 15 0 0 0">
                     <children>
                         <Label prefHeight="17.0" prefWidth="90.0" text="Spilletid" />
-                        <TextField prefHeight="25.0" prefWidth="296.0" fx:id="runtimeField" />
+                        <TextField fx:id="runtimeField" prefHeight="25.0" prefWidth="296.0" />
                     </children>
                 </HBox>
 
@@ -154,7 +150,7 @@
                 <HBox style="-fx-padding: 15 0 0 0">
                     <children>
                         <Label prefHeight="17.0" prefWidth="90.0" text="Tilføj billede" />
-                        <Button prefHeight="25.0" prefWidth="80.0" fx:id="posterPathField" text="Vælg fil"/>
+                        <Button fx:id="posterPathField" onAction="#choosePictureFromFile" prefHeight="25.0" prefWidth="80.0" text="Vælg fil" />
                     </children>
                 </HBox>
             </children>
@@ -169,17 +165,17 @@
                 <!-- Auditorium selection -->
                 <HBox>
                     <children>
-                        <Label text="Sal"/>
-                        <ToggleButton text="Sal 1"/>
-                        <ToggleButton text="Sal 2"/>
+                        <Label text="Sal" />
+                        <ToggleButton text="Sal 1" />
+                        <ToggleButton text="Sal 2" />
                     </children>
                 </HBox>
 
                 <!-- Selection of date -->
-                <HBox style="-fx-padding: 10 0 0 0" >
+                <HBox style="-fx-padding: 10 0 0 0">
                     <children>
-                        <Label text="Afspilningsdato"/>
-                        <DatePicker fx:id="dateField"/>
+                        <Label text="Afspilningsdato" />
+                        <DatePicker fx:id="dateField" />
                     </children>
                 </HBox>
 
@@ -226,7 +222,7 @@
             </left>
             <right>
                 <HBox style="-fx-padding: 0 0 30 0">
-                    <Button onAction="#showAddShowAlert" fx:id="actionButton" prefHeight="39.0" prefWidth="57.0" text="Tilføj" />
+                    <Button fx:id="actionButton" prefHeight="39.0" prefWidth="57.0" text="Tilføj" />
                 </HBox>
             </right>
         </BorderPane>
