@@ -54,17 +54,26 @@ public class GUIController {
     }
 
 
+
     public static boolean validateAddShowFields() throws IOException {
-        AnchorPane ap = (AnchorPane) CreateShowController.get().getScene().lookup("#weirdAnchorPane");
-        TextField titleLabelField = (TextField) ap.lookup("#titleLabel");
-        TextField actorLabelField = (TextField) ap.lookup("#actorLabel");
-        TextField timeLabelField = (TextField) ap.lookup("#timeLabel");
-        if (titleLabelField.getText().equals("") || actorLabelField.getText().equals("") || timeLabelField.getText().equals(""))
+        String title = String.valueOf(CreateShowController.get().getScene().lookup("#titleLabel"));
+        String actor = String.valueOf(CreateShowController.get().getScene().lookup("#actorLabel"));
+        String time = String.valueOf(CreateShowController.get().getScene().lookup("#timeLabel"));
+
+
+        if (title.equals("null") || actor.equals("null") || time.equals("null"))
         {
             Alertboxes.showErrorAlertBox();
             return false;
         } else
-            return true;
+         //   DatabaseController.getInstance().startBackgroundTask();
+            createNewShowFromShowScene(title, actor, time);
+        return true;
+    }
+
+    private static void createNewShowFromShowScene(String title, String actor, String time) {
+        Show show = new Show(title, actor, time);
+
     }
 
 
