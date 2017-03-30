@@ -1,5 +1,5 @@
 package model;
 
-public interface IntegrityCheckNodeAction {
-    void run();
+public interface IntegrityCheckNodeAction<ID> {
+    public ID getId();
 }

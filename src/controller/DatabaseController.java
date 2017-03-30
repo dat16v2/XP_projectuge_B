@@ -60,12 +60,13 @@ public class DatabaseController {
                     MainController.get().removeShow(((Show) payload).getShowId()); // Remove show from local cache
                     break;
                 case UPDATE_SHOW:
-                    if (!(payload instanceof Show)) {
+                    if (!(payload instanceof Show[])) {
                         throw new IllegalArgumentException("Show was not provided as parameter to REMOVE_SHOW_FROM_VIEW TASK");
                     }
 
-                    DatabaseConnection.getInstance().edit((Show) payload);
-                    MainController.get().addShow((Show) payload);
+                    DatabaseConnection.getInstance().edit(((Show[]) payload)[0], ((Show[]) payload)[1]);
+                    
+                    //MainController.get().addShow((Show) payload);
                     break;
             }
         }

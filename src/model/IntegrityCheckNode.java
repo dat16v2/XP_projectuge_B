@@ -5,6 +5,7 @@ public class IntegrityCheckNode<N> {
     private String elementName;
     private boolean altered = false;
     private boolean newNode = false;
+    private boolean deleted = false;
 
 
     public IntegrityCheckNode(N elementType, String elementName) {
@@ -30,6 +31,14 @@ public class IntegrityCheckNode<N> {
 
     public void setAltered(boolean altered) {
         this.altered = altered;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     public void setNewNode(boolean newNode) {

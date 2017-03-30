@@ -1,6 +1,6 @@
 package model;
 
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class ShowIntegrityCheck extends IntegrityCheck {
@@ -9,13 +9,14 @@ public class ShowIntegrityCheck extends IntegrityCheck {
     // Nodes
     private IntegrityCheckNode<Show> icnShow;
     private IntegrityCheckNode<Rating> icnRating;
-    private HashSet<IntegrityCheckNode<Actor>> icnActors;
+    private HashMap<Integer, IntegrityCheckNode<Actor>> icnActors;
+    private HashMap<Integer, IntegrityCheckNode<Genre>> icnGenres;
 
     public ShowIntegrityCheck() {
 
     }
 
-    void run(Show show, Show cShow) {
+    public void run(Show show, Show cShow) {
         this.show = show;
         this.cShow = cShow;
 
@@ -27,9 +28,41 @@ public class ShowIntegrityCheck extends IntegrityCheck {
         icnRating = new IntegrityCheckNode<>(show.getAgeLimit(), "rating");
         checkRating();
 
-        // Loop through all Actor objects and run through their fields
-        icnActors = new HashSet<IntegrityCheckNode<Actor>>();
-        
+        icnActors = checkMap(cShow.getActorList(), show.getActorList(), "actor");
+
+        icnGenres = checkMap(cShow.getGenreList(), show.getGenreList(), "genre");
+    }
+
+    private <ID, TYPE> HashMap<ID, IntegrityCheckNode<TYPE>> checkMap(HashMap<ID, TYPE> c, HashMap<ID, TYPE> o, String eName) {
+        HashMap<ID, IntegrityCheckNode<TYPE>> iEL = new HashMap<ID, IntegrityCheckNode<TYPE>>();
+
+        HashMap<ID, TYPE> copy = new HashMap<ID, TYPE>(c);
+        Iterator<TYPE> it = c.values().iterator();
+        while (it.hasNext()) {
+            TYPE e = it.next();
+            Object id = ((IntegrityCheckNodeAction)e).getId();
+
+            IntegrityCheckNode<TYPE> icn = new IntegrityCheckNode<TYPE>(e, eName);
+
+            if (!c.containsKey(id)) {
+                icn.setNewNode(true);
+            }
+
+            iEL.put((ID) id, icn);
+            copy.remove((ID) id);
+        }
+
+        it = copy.values().iterator();
+
+        while (it.hasNext()) {
+            TYPE e = it.next();
+            Object id = ((IntegrityCheckNodeAction)e).getId();
+            IntegrityCheckNode<TYPE> icn = new IntegrityCheckNode<TYPE>(e, eName);
+            icn.setDeleted(true);
+            iEL.put((ID) id, icn);
+        }
+
+        return iEL;
     }
 
 
@@ -53,5 +86,21 @@ public class ShowIntegrityCheck extends IntegrityCheck {
         if (show.getAgeLimit().getName().equals(cShow.getAgeLimit().getName())) {
             icnRating.setAltered(false);
         }
+    }
+
+    public IntegrityCheckNode<Show> getIcnShow() {
+        return icnShow;
+    }
+
+    public IntegrityCheckNode<Rating> getIcnRating() {
+        return icnRating;
+    }
+
+    public HashMap<Integer, IntegrityCheckNode<Actor>> getIcnActors() {
+        return icnActors;
+    }
+
+    public HashMap<Integer, IntegrityCheckNode<Genre>> getIcnGenres() {
+        return icnGenres;
     }
 }

@@ -1,13 +1,11 @@
 package Database;
 
-import model.Actor;
-import model.Genre;
-import model.Rating;
-import model.Show;
+import model.*;
 
 import java.sql.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class DatabaseConnection {
     // Singleton design pattern
@@ -282,11 +280,58 @@ public class DatabaseConnection {
         }
     }
 
-    public void edit(Show show) {
-        PreparedStatement statementUpdateShow;
-        PreparedStatement statementUpdateShowActor;
-        PreparedStatement statementUpdateShowGenre;
-        PreparedStatement statementUpdateShowRating;
+    public void edit(Show show, Show showC) {
+        PreparedStatement statementUpdateShow = null;
+
+        PreparedStatement statementUpdateShowActor = null;
+        PreparedStatement statementRemoveShowActor = null;
+
+        PreparedStatement statementUpdateShowGenre = null;
+        PreparedStatement statementRemoveShowGenre = null;
+
+        PreparedStatement statementUpdateShowRating = null;
+
+        ShowIntegrityCheck sic = show.integrityCheck(showC);
+
+        // Show fields that is not classes
+        if (sic.getIcnShow().isAltered() || sic.getIcnShow().isDeleted()) {
+            try {
+                statementUpdateShow = conn.prepareStatement("UPDATE `show` SET title=?, runtime=?, poster_path=? WHERE id=?");
+
+                statementUpdateShow.setString(1, sic.getIcnShow().getElementType().getTitle());
+                statementUpdateShow.setInt(2, sic.getIcnShow().getElementType().getRunTime());
+                statementUpdateShow.setString(3, sic.getIcnShow().getElementType().getImage());
+                statementUpdateShow.setInt(4, sic.getIcnShow().getElementType().getShowId());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Rating
+        if (sic.getIcnRating().isAltered()) {
+            try {
+                statementUpdateShowRating = conn.prepareStatement("UPDATE show_rating SET id_rating=? WHERE id_show=?");
+
+                statementUpdateShowRating.setInt(1, sic.getIcnRating().getElementType().getId());
+                statementUpdateShowRating.setInt(2, sic.getIcnShow().getElementType().getShowId());
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Actors
+        Iterator<IntegrityCheckNode<Actor>> it = sic.getIcnActors().values().iterator();
+        while (it.hasNext()) {
+            IntegrityCheckNode<Actor> icn = it.next();
+            if (icn.isDeleted()) {
+                try {
+                    statementRemoveShowActor = conn.prepareStatement("DELETE FROM show_actor WHERE id_show=?");
+                    statementRemoveShowActor.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public boolean deleteShow(Show show) {
