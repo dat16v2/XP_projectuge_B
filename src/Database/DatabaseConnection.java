@@ -74,6 +74,79 @@ public class DatabaseConnection {
         return shows;
     }
 
+    public HashSet<Rating> getRatings() {
+        PreparedStatement statementGetRatings;
+        ResultSet result = null;
+        HashSet<Rating> ratings = new HashSet<Rating>();
+
+        try {
+            statementGetRatings = conn.prepareStatement("SELECT id, `name` FROM rating");
+
+            result = statementGetRatings.executeQuery();
+
+            while (result.next()) {
+                Rating rating = new Rating();
+                rating.setId(result.getInt(1));
+                rating.setName(result.getString(2));
+
+                ratings.add(rating);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ratings;
+    }
+
+    public HashSet<Genre> getGenres() {
+        PreparedStatement statementGetGenres;
+        ResultSet result = null;
+        HashSet<Genre> genres = new HashSet<Genre>();
+
+        try {
+            statementGetGenres = conn.prepareStatement("SELECT id, `name` FROM genre");
+
+            result = statementGetGenres.executeQuery();
+
+            while (result.next()) {
+                Genre genre = new Genre();
+                genre.setId(result.getInt(1));
+                genre.setName(result.getString(2));
+
+                genres.add(genre);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return genres;
+    }
+
+    public HashSet<Actor> getActors() {
+        PreparedStatement statementGetActors;
+        ResultSet result = null;
+        HashSet<Actor> actors = new HashSet<Actor>();
+
+        try {
+            statementGetActors = conn.prepareStatement("SELECT id, first_name, last_name FROM actor");
+
+            result = statementGetActors.executeQuery();
+
+            while (result.next()) {
+                Actor actor = new Actor();
+                actor.setId(result.getInt(1));
+                actor.setFirstName(result.getString(2));
+                actor.setLastName(result.getString(3));
+
+                actors.add(actor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return actors;
+    }
+
     public Show getShowDetails(Show show) {
         PreparedStatement statementGetShowActor;
         PreparedStatement statementGetShowGenre;
@@ -285,18 +358,19 @@ public class DatabaseConnection {
     public void edit(Show show, Show showC) {
         PreparedStatement statementUpdateShow = null;
 
+        PreparedStatement statementUpdateShowRating = null;
+
         PreparedStatement statementAddShowActor = null;
         PreparedStatement statementRemoveShowActor = null;
 
         PreparedStatement statementAddShowGenre = null;
         PreparedStatement statementRemoveShowGenre = null;
 
-        PreparedStatement statementUpdateShowRating = null;
 
         ShowIntegrityCheck sic = show.integrityCheck(showC);
 
         // Show fields that is not classes
-        if (sic.getIcnShow().isAltered() || sic.getIcnShow().isDeleted()) {
+        if (sic.getIcnShow().isAltered()) {
             try {
                 statementUpdateShow = conn.prepareStatement("UPDATE `show` SET title=?, runtime=?, poster_path=? WHERE id=?");
 
@@ -342,11 +416,11 @@ public class DatabaseConnection {
                     }
                 } else if (icn.isNewNode()) {
                     try {
-                        statementAddShowGenre = conn.prepareStatement("INSERT INTO show_actor (id_show, id_actor) values (?, ?)");
-                        statementAddShowGenre.setInt(1, sic.getIcnShow().getElementType().getShowId());
-                        statementAddShowGenre.setInt(2, icn.getElementType().getId());
+                        statementAddShowActor = conn.prepareStatement("INSERT INTO show_actor (id_show, id_actor) values (?, ?)");
+                        statementAddShowActor.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementAddShowActor.setInt(2, icn.getElementType().getId());
 
-                        statementAddShowGenre.execute();
+                        statementAddShowActor.execute();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -375,11 +449,11 @@ public class DatabaseConnection {
                     }
                 } else if (icn.isNewNode()) {
                     try {
-                        statementAddShowActor = conn.prepareStatement("INSERT INTO show_genre (id_show, id_genre) values (?, ?)");
-                        statementAddShowActor.setInt(1, sic.getIcnShow().getElementType().getShowId());
-                        statementAddShowActor.setInt(2, icn.getElementType().getId());
+                        statementAddShowGenre = conn.prepareStatement("INSERT INTO show_genre (id_show, id_genre) values (?, ?)");
+                        statementAddShowGenre.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementAddShowGenre.setInt(2, icn.getElementType().getId());
 
-                        statementAddShowActor.execute();
+                        statementAddShowGenre.execute();
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -395,20 +469,6 @@ public class DatabaseConnection {
             return preparedStmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-            }
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException se) {
-
-            }
         }
 
         return false;

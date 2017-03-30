@@ -1,7 +1,6 @@
 package controller;
 
 import Database.DatabaseConnection;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.application.Platform;
 import model.Show;
 

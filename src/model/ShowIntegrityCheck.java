@@ -21,11 +21,11 @@ public class ShowIntegrityCheck extends IntegrityCheck {
         this.cShow = cShow;
 
         // Run through Show fields
-        icnShow = new IntegrityCheckNode<Show>(show, "show");
+        icnShow = new IntegrityCheckNode<Show>(cShow, "show");
         checkShow();
 
         // Run through Rating fields
-        icnRating = new IntegrityCheckNode<>(show.getAgeLimit(), "rating");
+        icnRating = new IntegrityCheckNode<>(cShow.getAgeLimit(), "rating");
         checkRating();
 
         icnActors = checkMap(cShow.getActorList(), show.getActorList(), "actor");
