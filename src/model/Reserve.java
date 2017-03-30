@@ -1,29 +1,41 @@
 package model;
 
+import Database.DatabaseConnection;
+
+import java.lang.reflect.Array;
+
 /**
  * Created by Søren on 24-03-2017.
  */
 public class Reserve {
 
 
-    private Object[] seatNumber = new Object[240];
+    public Object[] smallStage = new Object[240];
+    public Object[] bigStage = new Object[400];
     private static int counterNext = 0;
+    private DatabaseConnection dbReserve = new DatabaseConnection();
 
-    public Object[] getSeatNumber() {
-        return seatNumber;
+    public int getCounter(){
+        return counterNext;
+    }
+
+    public void setCounter(int counterNext){
+        this.counterNext = counterNext;
     }
 
     public void setSeatNumber(Object[] seatNumber) {
-        this.seatNumber = seatNumber;
+        this.bigStage = seatNumber;
     }
 
     public int Integer(int seat) {
         return seat;
     }
 
-    public void numberOfReservation(int reservationsNumb){
+    public void numberOfReservation(int reservationsNumb, Object[] whatStage){
+        //emptyShow(whatStage);
         for(int i = 0; i < reservationsNumb; i++) {
-            setIn();
+
+            setIn();;
         }
     }
 
@@ -41,14 +53,36 @@ public class Reserve {
     }*/
 
     public String countsSeats() {
-        int availbleSeats = seatNumber.length - counterNext;
-        return "Antal optaget pladser " + counterNext + " Antal ledige pladser " + availbleSeats;
+        int availbleSeats = bigStage.length - counterNext;
+        int reserveSeats = counterNext ;
+        return "Antal optaget pladser " + reserveSeats + " Antal ledige pladser " + availbleSeats;
     }
 
     public void setIn() {
-        seatNumber[counterNext] = counterNext;
+        bigStage[counterNext] = counterNext;
         counterNext++;
-        setSeatNumber(seatNumber);
+        setCounter(counterNext);
+        setSeatNumber(bigStage);
     }
+
+
+    public void setIn(int zeroIndex) {
+        bigStage[counterNext] = counterNext;
+        counterNext++;
+        setSeatNumber(bigStage);
+    }
+
+    /*public boolean emptyShow(Object[] cinemaStage){
+        for(int i = 0; i < cinemaStage.length; i++){
+            if(cinemaStage[i] != null) {
+                break;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        return true;
+    }*/
 
 }
