@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import model.Show;
 import view.Alertboxes;
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class GUIController {
 
 
     public static boolean validateAddShowFields() throws IOException {
-        AnchorPane ap = (AnchorPane) GUIController.addShowWindow.lookup("#weirdAnchorPane");
+        AnchorPane ap = (AnchorPane) CreateShowController.get().getScene().lookup("#weirdAnchorPane");
         TextField titleLabelField = (TextField) ap.lookup("#titleLabel");
         TextField actorLabelField = (TextField) ap.lookup("#actorLabel");
         TextField timeLabelField = (TextField) ap.lookup("#timeLabel");
