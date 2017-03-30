@@ -1,6 +1,6 @@
 package model;
 
-public class Genre {
+public class Genre implements IntegrityCheckNodeAction{
     private int id;
     private String name;
 

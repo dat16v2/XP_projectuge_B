@@ -10,8 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import model.Show;
 import view.Alertboxes;
-
-import javax.xml.soap.Text;
 import java.io.File;
 import java.io.IOException;
 
@@ -54,7 +52,6 @@ public class GUIController {
             e.printStackTrace();
         }
     }
-
 
 
     public static boolean validateAddShowFields() throws IOException {

@@ -132,10 +132,8 @@ public class MainController implements IController {
             edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                        IController ic = new ShowController(ShowController.Action.EDIT, show);
-                        Main.ps.setScene(ic.getScene());
-                        //GUIController.editShowWindow(event);
-
+                    ShowController sc = new ShowController(ShowController.Action.EDIT, show);
+                    Main.ps.setScene(sc.getScene());
                 }
             });
 
@@ -150,7 +148,7 @@ public class MainController implements IController {
 
             book.setOnAction(e -> {
                 GUIController.goToBooking(e);
-        });
+            });
         }
     }
 

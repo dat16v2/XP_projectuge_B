@@ -1,7 +1,6 @@
 package controller;
 
 import Database.DatabaseConnection;
-import com.sun.javaws.exceptions.InvalidArgumentException;
 import javafx.application.Platform;
 import model.Show;
 
@@ -66,7 +65,7 @@ public class DatabaseController {
 
                     DatabaseConnection.getInstance().edit(((Show[]) payload)[0], ((Show[]) payload)[1]);
                     
-                    //MainController.get().addShow((Show) payload);
+                    MainController.get().addShow(((Show[]) payload)[1]);
                     break;
             }
         }
