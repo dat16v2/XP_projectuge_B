@@ -10,8 +10,8 @@ import java.io.IOException;
 public class GUIController {
 
     public static void addShowWindow(ActionEvent actionEvent) throws IOException {
-        Parent newScene = FXMLLoader.load(Main.cl.getResource("view/addShowScene.fxml"));
-        Main.ps.setScene(new Scene(newScene, 650, 400));
+        IController controller = new ShowController(ShowController.Action.CREATE, null);
+        Main.ps.setScene(controller.getScene());
     }
 
     public static void switchScene(IController controller) {

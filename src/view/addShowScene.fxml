@@ -226,7 +226,7 @@
             </left>
             <right>
                 <HBox style="-fx-padding: 0 0 30 0">
-                    <Button onAction="#showAddShowAlert" prefHeight="39.0" prefWidth="57.0" text="Tilføj" />
+                    <Button onAction="#showAddShowAlert" fx:id="actionButton" prefHeight="39.0" prefWidth="57.0" text="Tilføj" />
                 </HBox>
             </right>
         </BorderPane>

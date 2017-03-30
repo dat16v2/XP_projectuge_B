@@ -282,6 +282,13 @@ public class DatabaseConnection {
         }
     }
 
+    public void edit(Show show) {
+        PreparedStatement statementUpdateShow;
+        PreparedStatement statementUpdateShowActor;
+        PreparedStatement statementUpdateShowGenre;
+        PreparedStatement statementUpdateShowRating;
+    }
+
     public boolean deleteShow(Show show) {
         try {
             PreparedStatement preparedStmt = conn.prepareStatement("DELETE FROM `show` WHERE id = ?");

@@ -59,13 +59,21 @@ public class DatabaseController {
                     DatabaseConnection.getInstance().deleteShow((Show) payload); // Remove show from DB
                     MainController.get().removeShow(((Show) payload).getShowId()); // Remove show from local cache
                     break;
+                case UPDATE_SHOW:
+                    if (!(payload instanceof Show)) {
+                        throw new IllegalArgumentException("Show was not provided as parameter to REMOVE_SHOW_FROM_VIEW TASK");
+                    }
 
+                    DatabaseConnection.getInstance().edit((Show) payload);
+                    MainController.get().addShow((Show) payload);
+                    break;
             }
         }
     }
 
     public enum Task {
         UPDATE_INITIAL_SHOW_VIEW,
-        REMOVE_SHOW_FROM_VIEW
+        REMOVE_SHOW_FROM_VIEW,
+        UPDATE_SHOW
     }
 }

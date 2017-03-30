@@ -87,4 +87,11 @@ public class Show {
     public void setImage(String image) {
         this.image = image;
     }
+
+    public IntegrityCheck integrityCheck(Show cShow) {
+        ShowIntegrityCheck sic = new ShowIntegrityCheck();
+        sic.run(this, cShow);
+
+        return sic;
+    }
 }
