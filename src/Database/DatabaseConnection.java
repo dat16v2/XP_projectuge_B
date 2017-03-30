@@ -46,7 +46,7 @@ public class DatabaseConnection {
         }
     }
 
-    public Collection<Show> getShows() {
+    public HashSet<Show> getShows() {
         PreparedStatement statementGetShows;
         HashSet<Show> shows = new HashSet<Show>();
 

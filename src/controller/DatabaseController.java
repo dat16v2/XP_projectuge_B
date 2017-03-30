@@ -47,7 +47,7 @@ public class DatabaseController {
         private void runInJavaFXThread() {
             switch (task) {
                 case UPDATE_INITIAL_SHOW_VIEW:
-                    HashSet<Show> shows = (HashSet) DatabaseConnection.getInstance().getShows();
+                    HashSet<Show> shows = DatabaseConnection.getInstance().getShows();
                     MainController.get().addShows(shows);
                     break;
                 case REMOVE_SHOW_FROM_VIEW:

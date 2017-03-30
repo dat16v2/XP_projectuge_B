@@ -8,15 +8,14 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import model.Actor;
 import model.Genre;
 import model.Rating;
 import model.Show;
 import view.Alertboxes;
 
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -80,7 +79,15 @@ public class ShowController implements IController {
 
         // Get actors from DB
         {
-            HashSet<Actor> actors;
+            HashSet<Actor> actors = DatabaseConnection.getInstance().getActors();
+            actorsMap = new HashMap<Integer, String>();
+
+            Iterator<Actor> it = actors.iterator();
+
+            while (it.hasNext()) {
+                Actor actor = it.next();
+                actorsMap.put(actor.getId(), String.format("%s %s", actor.getFirstName(), actor.getLastName()));
+            }
         }
 
         switch (action) {
@@ -107,6 +114,11 @@ public class ShowController implements IController {
                     showRatingField.setItems(ratingObservableList);
                     showRatingField.setValue((String)ratingsMap.values().toArray()[0]);
 
+                    // Genre
+                    ChoiceBox showGenreField = (ChoiceBox) getScene().lookup("#showGenreField");
+                    ObservableList<String> genreObservableList = FXCollections.observableArrayList(genresMap.values());
+                    showGenreField.setItems(genreObservableList);
+                    showGenreField.setValue((String)genresMap.values().toArray()[0]);
 
                 }
                 break;
@@ -115,7 +127,7 @@ public class ShowController implements IController {
                     this.show = showP;
                     Button button = (Button) scene.lookup("#actionButton");
                     button.setText("Gem ændringer");
-                    button.setPrefWidth(90);
+                    button.setPrefWidth(130);
                     button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
@@ -148,10 +160,19 @@ public class ShowController implements IController {
                     showRatingField.setValue((String)ratingsMap.values().toArray()[0]);
 
                     // Genre
-                    ChoiceBox showGenreField = (ChoiceBox) getScene().lookup("#showGenreField");
+                    ScrollPane genreScrollPane = (ScrollPane) getScene().lookup("#showGenreScrollPane");
+                    ListView showGenreField = (ListView) genreScrollPane.getContent();
+
                     ObservableList<String> genreObservableList = FXCollections.observableArrayList(genresMap.values());
                     showGenreField.setItems(genreObservableList);
-                    showGenreField.setValue((String)genresMap.values().toArray()[0]);
+
+                    // Actors
+                    ScrollPane actorScrollPane = (ScrollPane) getScene().lookup("#showActorScrollPane");
+                    ListView actorField = (ListView) actorScrollPane.getContent();
+                    ObservableList<String> actorsObservableList = FXCollections.observableArrayList(actorsMap.values());
+                    actorField.setItems(actorsObservableList);
+
+
                 }
                 break;
         }

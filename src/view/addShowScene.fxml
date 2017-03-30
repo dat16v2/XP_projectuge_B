@@ -17,6 +17,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <BorderPane minHeight="600" minWidth="1000" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
     <top>
         <VBox>
@@ -94,7 +96,15 @@
                 <HBox style="-fx-padding: 15 0 0 0">
                     <children>
                         <Label prefHeight="17.0" prefWidth="90.0" text="Skuespillere" />
-                        <TextField fx:id="actorField" prefHeight="25.0" prefWidth="296.0" />
+                        <ScrollPane fx:id="showActorScrollPane">
+                            <ListView fx:id="showActorField" prefHeight="75">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Loading" />
+                                    </FXCollections>
+                                </items>
+                            </ListView>
+                        </ScrollPane>
                     </children>
                 </HBox>
 
@@ -129,16 +139,15 @@
                     <children>
                         <Label prefHeight="17.0" prefWidth="90.0" text="Genre" />
 
-                        <ChoiceBox fx:id="showGenreField" prefHeight="25.0" prefWidth="296.0" value="Action">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Action" />
-                                    <String fx:value="XX" />
-                                    <String fx:value="Romance" />
-                                    <String fx:value="Gyser" />
-                                </FXCollections>
-                            </items>
-                        </ChoiceBox>
+                        <ScrollPane fx:id="showGenreScrollPane">
+                            <ListView fx:id="showGenreField" prefHeight="75">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Loading" />
+                                    </FXCollections>
+                                </items>
+                            </ListView>
+                        </ScrollPane>
                     </children>
                 </HBox>
 
