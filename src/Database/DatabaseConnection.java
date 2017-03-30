@@ -285,10 +285,10 @@ public class DatabaseConnection {
     public void edit(Show show, Show showC) {
         PreparedStatement statementUpdateShow = null;
 
-        PreparedStatement statementUpdateShowActor = null;
+        PreparedStatement statementAddShowActor = null;
         PreparedStatement statementRemoveShowActor = null;
 
-        PreparedStatement statementUpdateShowGenre = null;
+        PreparedStatement statementAddShowGenre = null;
         PreparedStatement statementRemoveShowGenre = null;
 
         PreparedStatement statementUpdateShowRating = null;
@@ -304,6 +304,8 @@ public class DatabaseConnection {
                 statementUpdateShow.setInt(2, sic.getIcnShow().getElementType().getRunTime());
                 statementUpdateShow.setString(3, sic.getIcnShow().getElementType().getImage());
                 statementUpdateShow.setInt(4, sic.getIcnShow().getElementType().getShowId());
+
+                statementUpdateShow.execute();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -316,21 +318,71 @@ public class DatabaseConnection {
 
                 statementUpdateShowRating.setInt(1, sic.getIcnRating().getElementType().getId());
                 statementUpdateShowRating.setInt(2, sic.getIcnShow().getElementType().getShowId());
+
+                statementUpdateShowRating.execute();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
 
         // Actors
-        Iterator<IntegrityCheckNode<Actor>> it = sic.getIcnActors().values().iterator();
-        while (it.hasNext()) {
-            IntegrityCheckNode<Actor> icn = it.next();
-            if (icn.isDeleted()) {
-                try {
-                    statementRemoveShowActor = conn.prepareStatement("DELETE FROM show_actor WHERE id_show=?");
-                    statementRemoveShowActor.setInt(1, sic.getIcnShow().getElementType().getShowId());
-                } catch (SQLException e) {
-                    e.printStackTrace();
+        {
+            Iterator<IntegrityCheckNode<Actor>> it = sic.getIcnActors().values().iterator();
+            while (it.hasNext()) {
+                IntegrityCheckNode<Actor> icn = it.next();
+                if (icn.isDeleted()) {
+                    try {
+                        statementRemoveShowActor = conn.prepareStatement("DELETE FROM show_actor WHERE id_show=?, id_actor=?");
+                        statementRemoveShowActor.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementRemoveShowActor.setInt(2, icn.getElementType().getId());
+
+                        statementRemoveShowActor.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else if (icn.isNewNode()) {
+                    try {
+                        statementAddShowGenre = conn.prepareStatement("INSERT INTO show_actor (id_show, id_actor) values (?, ?)");
+                        statementAddShowGenre.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementAddShowGenre.setInt(2, icn.getElementType().getId());
+
+                        statementAddShowGenre.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+
+
+        // Genres
+        {
+            Iterator<IntegrityCheckNode<Genre>> it = sic.getIcnGenres().values().iterator();
+
+            while (it.hasNext()) {
+                IntegrityCheckNode<Genre> icn = it.next();
+
+                if (icn.isDeleted()) {
+                    try {
+                        statementRemoveShowGenre = conn.prepareStatement("DELETE FROM show_genre WHERE id_show=?, id_genre=?");
+                        statementRemoveShowGenre.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementRemoveShowGenre.setInt(2, icn.getElementType().getId());
+
+                        statementRemoveShowGenre.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else if (icn.isNewNode()) {
+                    try {
+                        statementAddShowActor = conn.prepareStatement("INSERT INTO show_genre (id_show, id_genre) values (?, ?)");
+                        statementAddShowActor.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementAddShowActor.setInt(2, icn.getElementType().getId());
+
+                        statementAddShowActor.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

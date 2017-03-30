@@ -70,9 +70,9 @@ public class ShowController implements IController {
                             shows[1].getAgeLimit().setName("Nihao");
                             shows[1].getActorList().remove(2);
                             Actor actor = new Actor();
-                            actor.setId(69);
+                            actor.setId(4);
                             actor.setFirstName("Jakob");
-                            shows[1].getActorList().put(69, actor);
+                            shows[1].getActorList().put(actor.getId(), actor);
                             shows[1].getGenreList().remove(7);
                             DatabaseController.getInstance().startBackgroundTask(DatabaseController.Task.UPDATE_SHOW, shows);
                         }
