@@ -1,95 +1,227 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
-    <children>
-        <MenuBar VBox.vgrow="NEVER">
-            <menus>
-                <Menu mnemonicParsing="false" text="File">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Open…" />
-                        <Menu mnemonicParsing="false" text="Open Recent" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                        <MenuItem mnemonicParsing="false" text="Save" />
-                        <MenuItem mnemonicParsing="false" text="Save As…" />
-                        <MenuItem mnemonicParsing="false" text="Revert" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Preferences…" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Quit" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Undo" />
-                        <MenuItem mnemonicParsing="false" text="Redo" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Cut" />
-                        <MenuItem mnemonicParsing="false" text="Copy" />
-                        <MenuItem mnemonicParsing="false" text="Paste" />
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Select All" />
-                        <MenuItem mnemonicParsing="false" text="Unselect All" />
-                    </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
-                    </items>
-                </Menu>
-            </menus>
-        </MenuBar>
-        <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="375.0" prefWidth="681.0" VBox.vgrow="ALWAYS">
+<BorderPane minHeight="600" minWidth="1000" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+    <top>
+        <VBox>
             <children>
-                <Button layoutX="518.0" layoutY="308.0" mnemonicParsing="false" onAction="#showAddShowAlert" prefHeight="39.0" prefWidth="77.0" text="Tilføj" />
-                <Text fill="#f4c542" layoutX="45.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGO">
-                    <font>
-                        <Font name="Impact" size="42.0" />
-                    </font>
-                </Text>
-                <TextField layoutX="130.0" layoutY="63.0" prefHeight="25.0" prefWidth="296.0" />
-                <TextField layoutX="130.0" layoutY="95.0" prefHeight="25.0" prefWidth="296.0" />
-                <TextField layoutX="130.0" layoutY="128.0" prefHeight="25.0" prefWidth="296.0" />
-                <Button layoutX="130.0" layoutY="245.0" mnemonicParsing="false" text="Vælg fil" />
-                <Button layoutX="53.0" layoutY="302.0" mnemonicParsing="false" onAction="#mainWindowFX" prefHeight="39.0" prefWidth="77.0" text="Anuller" />
-                <Label layoutX="35.0" layoutY="67.0" prefHeight="17.0" prefWidth="72.0" text="Titel" />
-                <Label layoutX="35.0" layoutY="99.0" prefHeight="17.0" prefWidth="72.0" text="Skuespillere" />
-                <Label layoutX="35.0" layoutY="132.0" prefHeight="17.0" prefWidth="72.0" text="Spilletid" />
-                <Label layoutX="35.0" layoutY="167.0" text="Aldersgruppe" />
-                <Label layoutX="35.0" layoutY="198.0" prefHeight="17.0" prefWidth="72.0" text="Genre" />
-                <Label layoutX="39.0" layoutY="249.0" text="Tilføj billede" />
-                <MenuButton alignment="CENTER" layoutX="130.0" layoutY="163.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="296.0" text="Vælg mininums alder" textAlignment="CENTER">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Alle" />
-                        <MenuItem mnemonicParsing="false" text="7" />
-                        <MenuItem mnemonicParsing="false" text="11" />
-                        <MenuItem mnemonicParsing="false" text="15" />
-                    </items>
-                </MenuButton>
-                <MenuButton alignment="CENTER" layoutX="130.0" layoutY="194.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="296.0" text="Vælg genre" textAlignment="CENTER">
-                    <items>
-                        <MenuItem mnemonicParsing="false" text="Action" />
-                        <MenuItem mnemonicParsing="false" text="XX" />
-                        <MenuItem mnemonicParsing="false" text="Romance" />
-                        <MenuItem mnemonicParsing="false" text="Gyser" />
-                    </items>
-                </MenuButton>
+                <HBox>
+                    <MenuBar HBox.hgrow="ALWAYS">
+                        <menus>
+                            <Menu mnemonicParsing="false" text="File">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" text="New" />
+                                    <MenuItem mnemonicParsing="false" text="Open…" />
+                                    <Menu mnemonicParsing="false" text="Open Recent" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" text="Close" />
+                                    <MenuItem mnemonicParsing="false" text="Save" />
+                                    <MenuItem mnemonicParsing="false" text="Save As…" />
+                                    <MenuItem mnemonicParsing="false" text="Revert" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" text="Preferences…" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" text="Quit" />
+                                </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Edit">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" text="Undo" />
+                                    <MenuItem mnemonicParsing="false" text="Redo" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" text="Cut" />
+                                    <MenuItem mnemonicParsing="false" text="Copy" />
+                                    <MenuItem mnemonicParsing="false" text="Paste" />
+                                    <MenuItem mnemonicParsing="false" text="Delete" />
+                                    <SeparatorMenuItem mnemonicParsing="false" />
+                                    <MenuItem mnemonicParsing="false" text="Select All" />
+                                    <MenuItem mnemonicParsing="false" text="Unselect All" />
+                                </items>
+                            </Menu>
+                            <Menu mnemonicParsing="false" text="Help">
+                                <items>
+                                    <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                                </items>
+                            </Menu>
+                        </menus>
+                    </MenuBar>
+                </HBox>
+
+                <!-- LOGO -->
+                <HBox style="-fx-padding: 0 0 10 0">
+                    <Label style="-fx-text-fill: #f4c542; -fx-stroke-type: outside; -fx-stroke-width: 0.0; -fx-padding: 10 0 0 25" text="LOGO">
+                        <font>
+                            <Font name="Impact" size="42.0" />
+                        </font>
+                    </Label>
+                </HBox>
             </children>
-        </AnchorPane>
-    </children>
-</VBox>
+        </VBox>
+    </top>
+
+    <!-- Form -->
+
+    <left>
+        <VBox style="-fx-padding: 0 0 0 20">
+            <children>
+
+                <!-- Title -->
+                <HBox>
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="90.0" text="Titel" />
+                        <TextField fx:id="titleField" prefHeight="25.0" prefWidth="296.0" />
+                    </children>
+                </HBox>
+
+                <!-- Actor -->
+
+                <HBox style="-fx-padding: 15 0 0 0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="90.0" text="Skuespillere" />
+                        <TextField fx:id="actorField" prefHeight="25.0" prefWidth="296.0" />
+                    </children>
+                </HBox>
+
+                <!-- Runtime -->
+
+                <HBox style="-fx-padding: 15 0 0 0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="90.0" text="Spilletid" />
+                        <TextField fx:id="runtimeField" prefHeight="25.0" prefWidth="296.0" />
+                    </children>
+                </HBox>
+
+                <!-- Show rating -->
+
+                <HBox style="-fx-padding: 15 0 0 0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="90.0" text="Aldersgruppe" />
+
+                        <ChoiceBox fx:id="showRatingField" prefHeight="25.0" prefWidth="296.0" value="Loading">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Loading" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                    </children>
+                </HBox>
+
+                <!-- Show genre -->
+
+                <HBox style="-fx-padding: 15 0 0 0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="90.0" text="Genre" />
+
+                        <ChoiceBox fx:id="showGenreField" prefHeight="25.0" prefWidth="296.0" value="Action">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Action" />
+                                    <String fx:value="XX" />
+                                    <String fx:value="Romance" />
+                                    <String fx:value="Gyser" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                    </children>
+                </HBox>
+
+                <!-- Add image poster -->
+
+                <HBox style="-fx-padding: 15 0 0 0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="90.0" text="Tilføj billede" />
+                        <Button fx:id="posterPathField" onAction="#choosePictureFromFile" prefHeight="25.0" prefWidth="80.0" text="Vælg fil" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </left>
+
+    <right>
+        <VBox style="-fx-padding: 0 20 0 0">
+            <children>
+                <Label text="Vælg auditorium og dato for én afspilning" />
+
+                <!-- Auditorium selection -->
+                <HBox>
+                    <children>
+                        <Label text="Sal" />
+                        <ToggleButton text="Sal 1" />
+                        <ToggleButton text="Sal 2" />
+                    </children>
+                </HBox>
+
+                <!-- Selection of date -->
+                <HBox style="-fx-padding: 10 0 0 0">
+                    <children>
+                        <Label text="Afspilningsdato" />
+                        <DatePicker fx:id="dateField" />
+                    </children>
+                </HBox>
+
+                <!-- Selection of time -->
+                <HBox style="-fx-padding: 15 0 0 0">
+                    <children>
+                        <Label prefHeight="17.0" prefWidth="90.0" text="Time" />
+
+                        <ChoiceBox fx:id="timeField" prefHeight="25.0" prefWidth="80.0" value="14:00">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="14:00" />
+                                    <String fx:value="14:30" />
+                                    <String fx:value="15:00" />
+                                    <String fx:value="15:30" />
+                                    <String fx:value="16:00" />
+                                    <String fx:value="16:30" />
+                                    <String fx:value="17:00" />
+                                    <String fx:value="17:30" />
+                                    <String fx:value="18:00" />
+                                    <String fx:value="18:30" />
+                                    <String fx:value="19:00" />
+                                    <String fx:value="19:30" />
+                                    <String fx:value="20:00" />
+                                    <String fx:value="20:30" />
+                                    <String fx:value="21:00" />
+                                    <String fx:value="21:30" />
+                                    <String fx:value="22:00" />
+                                </FXCollections>
+                            </items>
+                        </ChoiceBox>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </right>
+
+    <bottom>
+        <BorderPane>
+            <left>
+                <HBox style="-fx-padding: 0 0 30 0">
+                    <Button onAction="#mainWindowFX" prefHeight="39.0" prefWidth="87.0" text="Anuller" />
+                </HBox>
+            </left>
+            <right>
+                <HBox style="-fx-padding: 0 0 30 0">
+                    <Button fx:id="actionButton" prefHeight="39.0" prefWidth="57.0" text="Tilføj" />
+                </HBox>
+            </right>
+        </BorderPane>
+    </bottom>
+</BorderPane>

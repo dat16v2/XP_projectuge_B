@@ -4,6 +4,15 @@ public class Rating {
     private int id;
     private String name;
 
+    public Rating() {
+
+    }
+
+    public Rating(Rating rating) {
+        this.id = rating.id;
+        this.name = rating.name;
+    }
+
     public int getId() {
         return id;
     }

@@ -9,10 +9,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import model.Show;
+import view.Alertboxes;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -115,16 +117,38 @@ public class MainController implements IController {
             buttonsBox.setStyle("-fx-spacing: 10px; -fx-padding: 70 0 0 15");
 
             Button edit = new Button();
-            edit.setText("Redigere");
+            edit.setText("Rediger");
 
             Button delete = new Button();
             delete.setText("Slet");
 
-            buttonsBox.getChildren().addAll(edit, delete);
+            delete.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    Alertboxes.showRemoveShowAlertShow(show);
+                }
+            });
+
+            edit.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    ShowController sc = new ShowController(ShowController.Action.EDIT, show);
+                    Main.ps.setScene(sc.getScene());
+                }
+            });
+
+
+            Button book = new Button("Book");
+
+            buttonsBox.getChildren().addAll(edit, delete, book);
 
             // All everything to children.. "children"
             showLayout.getChildren().addAll(imagePane, description, buttonsBox);
             showList.getChildren().add(showLayout);
+
+            book.setOnAction(e -> {
+                GUIController.goToBooking(e);
+            });
         }
     }
 
@@ -139,7 +163,7 @@ public class MainController implements IController {
             @Override
             public void handle(javafx.stage.WindowEvent event) {
                 DatabaseController.getInstance().
-                        startBackgroundTask(DatabaseController.Task.UPDATE_SHOW_VIEW);
+                        startBackgroundTask(DatabaseController.Task.UPDATE_INITIAL_SHOW_VIEW);
             }
         });
 

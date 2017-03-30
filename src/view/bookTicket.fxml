@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -7,17 +8,15 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.control.ScrollPane?>
-<BorderPane prefHeight="600.0" minHeight="600" prefWidth="1000.0" minWidth="1000" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
+<?import javafx.scene.text.TextFlow?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.GUIController">
     <top>
         <VBox>
             <!-- MENU BAR -->
@@ -65,28 +64,23 @@
                 </children>
             </HBox>
             <!-- LOGO -->
-            <HBox style="-fx-padding: 0 0 10 0">
+            <HBox style="-fx-padding: 0 0 50 0">
                 <Label style="-fx-text-fill: #f4c542; -fx-stroke-type: outside; -fx-stroke-width: 0.0; -fx-padding: 10 0 0 25" text="LOGO">
                     <font>
                         <Font name="Impact" size="42.0" />
                     </font>
                 </Label>
+            <Label alignment="CENTER" text="Book billet">
+               <font>
+                  <Font size="36.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="300.0" top="20.0" />
+               </HBox.margin>
+            </Label>
             </HBox>
         </VBox>
     </top>
-
-    <left>
-        <ScrollPane fx:id="showListScrollPane">
-            <VBox style="-fx-padding: 0 0 0 30" fx:id="showList" />
-        </ScrollPane>
-    </left>
-    <right>
-        <BorderPane style="-fx-padding: 0 10 30 0">
-            <bottom>
-                <Button mnemonicParsing="false" onAction="#addShowWindowFX" prefHeight="61.0" prefWidth="162.0" text="Tilføj" />
-            </bottom>
-        </BorderPane>
-    </right>
 <!--
     <children>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefWidth="729.0" VBox.vgrow="ALWAYS">
@@ -107,4 +101,59 @@
     <cursor>
         <Cursor fx:constant="DEFAULT" />
     </cursor>
+   <left>
+      <Pane prefHeight="457.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="50.0" layoutY="384.0" mnemonicParsing="false" onAction="#mainWindowFX" prefHeight="38.0" prefWidth="103.0" text="Anuller" />
+            <Label layoutX="41.0" layoutY="19.0" text="Til forstilling: — getShowName() + getSal()">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextFlow layoutX="253.0" layoutY="17.0" prefHeight="29.0" prefWidth="221.0" />
+            <Label layoutX="41.0" layoutY="75.0" text="Udfyld:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="41.0" layoutY="125.0" text="Navn:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="41.0" layoutY="157.0" prefHeight="17.0" prefWidth="110.0" text="Tlf. nr.:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="41.0" layoutY="189.0" prefHeight="23.0" prefWidth="52.0" text="Dato:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="169.0" layoutY="125.0" prefHeight="27.0" prefWidth="201.0" />
+            <TextField layoutX="169.0" layoutY="157.0" prefHeight="27.0" prefWidth="201.0" />
+            <TextField layoutX="169.0" layoutY="189.0" prefHeight="27.0" prefWidth="201.0" text="getDate()" />
+            <Label layoutX="41.0" layoutY="221.0" prefHeight="23.0" prefWidth="52.0" text="Tid:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="169.0" layoutY="221.0" prefHeight="27.0" prefWidth="201.0" text="getTime()" />
+            <TextField layoutX="169.0" layoutY="253.0" prefHeight="27.0" prefWidth="38.0" />
+            <Label layoutX="41.0" layoutY="253.0" prefHeight="27.0" prefWidth="122.0" text="Antal billetter:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="211.0" layoutY="255.0" prefHeight="23.0" prefWidth="159.0" text="af 185 tilbage (ud af 240)" />
+         </children>
+      </Pane>
+   </left>
+   <right>
+      <Pane prefHeight="457.0" prefWidth="504.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button layoutX="362.0" layoutY="384.0" mnemonicParsing="false" onAction="#showBookTicketAlertbox" prefHeight="38.0" prefWidth="103.0" text="Book" />
+         </children></Pane>
+   </right>
 </BorderPane>

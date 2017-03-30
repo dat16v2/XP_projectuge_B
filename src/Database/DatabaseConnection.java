@@ -1,13 +1,11 @@
 package Database;
 
-import model.Actor;
-import model.Genre;
-import model.Rating;
-import model.Show;
+import model.*;
 
 import java.sql.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 
 public class DatabaseConnection {
     // Singleton design pattern
@@ -65,6 +63,8 @@ public class DatabaseConnection {
 
                 show = getShowDetails(show);
 
+
+
                 shows.add(show);
             }
         } catch (SQLException ex) {
@@ -72,6 +72,79 @@ public class DatabaseConnection {
         }
 
         return shows;
+    }
+
+    public HashSet<Rating> getRatings() {
+        PreparedStatement statementGetRatings;
+        ResultSet result = null;
+        HashSet<Rating> ratings = new HashSet<Rating>();
+
+        try {
+            statementGetRatings = conn.prepareStatement("SELECT id, `name` FROM rating");
+
+            result = statementGetRatings.executeQuery();
+
+            while (result.next()) {
+                Rating rating = new Rating();
+                rating.setId(result.getInt(1));
+                rating.setName(result.getString(2));
+
+                ratings.add(rating);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return ratings;
+    }
+
+    public HashSet<Genre> getGenres() {
+        PreparedStatement statementGetGenres;
+        ResultSet result = null;
+        HashSet<Genre> genres = new HashSet<Genre>();
+
+        try {
+            statementGetGenres = conn.prepareStatement("SELECT id, `name` FROM genre");
+
+            result = statementGetGenres.executeQuery();
+
+            while (result.next()) {
+                Genre genre = new Genre();
+                genre.setId(result.getInt(1));
+                genre.setName(result.getString(2));
+
+                genres.add(genre);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return genres;
+    }
+
+    public HashSet<Actor> getActors() {
+        PreparedStatement statementGetActors;
+        ResultSet result = null;
+        HashSet<Actor> actors = new HashSet<Actor>();
+
+        try {
+            statementGetActors = conn.prepareStatement("SELECT id, first_name, last_name FROM actor");
+
+            result = statementGetActors.executeQuery();
+
+            while (result.next()) {
+                Actor actor = new Actor();
+                actor.setId(result.getInt(1));
+                actor.setFirstName(result.getString(2));
+                actor.setLastName(result.getString(3));
+
+                actors.add(actor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return actors;
     }
 
     public Show getShowDetails(Show show) {
@@ -282,6 +355,113 @@ public class DatabaseConnection {
         }
     }
 
+    public void edit(Show show, Show showC) {
+        PreparedStatement statementUpdateShow = null;
+
+        PreparedStatement statementUpdateShowRating = null;
+
+        PreparedStatement statementAddShowActor = null;
+        PreparedStatement statementRemoveShowActor = null;
+
+        PreparedStatement statementAddShowGenre = null;
+        PreparedStatement statementRemoveShowGenre = null;
+
+
+        ShowIntegrityCheck sic = show.integrityCheck(showC);
+
+        // Show fields that is not classes
+        if (sic.getIcnShow().isAltered()) {
+            try {
+                statementUpdateShow = conn.prepareStatement("UPDATE `show` SET title=?, runtime=?, poster_path=? WHERE id=?");
+
+                statementUpdateShow.setString(1, sic.getIcnShow().getElementType().getTitle());
+                statementUpdateShow.setInt(2, sic.getIcnShow().getElementType().getRunTime());
+                statementUpdateShow.setString(3, sic.getIcnShow().getElementType().getImage());
+                statementUpdateShow.setInt(4, sic.getIcnShow().getElementType().getShowId());
+
+                statementUpdateShow.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Rating
+        if (sic.getIcnRating().isAltered()) {
+            try {
+                statementUpdateShowRating = conn.prepareStatement("UPDATE show_rating SET id_rating=? WHERE id_show=?");
+
+                statementUpdateShowRating.setInt(1, sic.getIcnRating().getElementType().getId());
+                statementUpdateShowRating.setInt(2, sic.getIcnShow().getElementType().getShowId());
+
+                statementUpdateShowRating.execute();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // Actors
+        {
+            Iterator<IntegrityCheckNode<Actor>> it = sic.getIcnActors().values().iterator();
+            while (it.hasNext()) {
+                IntegrityCheckNode<Actor> icn = it.next();
+                if (icn.isDeleted()) {
+                    try {
+                        statementRemoveShowActor = conn.prepareStatement("DELETE FROM show_actor WHERE id_show=?, id_actor=?");
+                        statementRemoveShowActor.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementRemoveShowActor.setInt(2, icn.getElementType().getId());
+
+                        statementRemoveShowActor.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else if (icn.isNewNode()) {
+                    try {
+                        statementAddShowActor = conn.prepareStatement("INSERT INTO show_actor (id_show, id_actor) values (?, ?)");
+                        statementAddShowActor.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementAddShowActor.setInt(2, icn.getElementType().getId());
+
+                        statementAddShowActor.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }
+
+
+        // Genres
+        {
+            Iterator<IntegrityCheckNode<Genre>> it = sic.getIcnGenres().values().iterator();
+
+            while (it.hasNext()) {
+                IntegrityCheckNode<Genre> icn = it.next();
+
+                if (icn.isDeleted()) {
+                    try {
+                        statementRemoveShowGenre = conn.prepareStatement("DELETE FROM show_genre WHERE id_show=?, id_genre=?");
+                        statementRemoveShowGenre.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementRemoveShowGenre.setInt(2, icn.getElementType().getId());
+
+                        statementRemoveShowGenre.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else if (icn.isNewNode()) {
+                    try {
+                        statementAddShowGenre = conn.prepareStatement("INSERT INTO show_genre (id_show, id_genre) values (?, ?)");
+                        statementAddShowGenre.setInt(1, sic.getIcnShow().getElementType().getShowId());
+                        statementAddShowGenre.setInt(2, icn.getElementType().getId());
+
+                        statementAddShowGenre.execute();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
     public boolean deleteShow(Show show) {
         try {
             PreparedStatement preparedStmt = conn.prepareStatement("DELETE FROM `show` WHERE id = ?");
@@ -289,20 +469,6 @@ public class DatabaseConnection {
             return preparedStmt.execute();
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-            }
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException se) {
-
-            }
         }
 
         return false;

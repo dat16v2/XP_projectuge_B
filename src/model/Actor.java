@@ -1,6 +1,6 @@
 package model;
 
-public class Actor {
+public class Actor implements IntegrityCheckNodeAction {
     private int id;
     private String firstName;
     private String lastName;
