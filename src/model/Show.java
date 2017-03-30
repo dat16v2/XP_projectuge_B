@@ -7,7 +7,7 @@ public class Show {
     private String title;
     private ArrayList<Actor> actorList = new ArrayList<Actor>();
     private int runTime;
-    private Rating ageLimit;
+    private Rating ageLimit = new Rating();
     private ArrayList<Genre> genreList = new ArrayList<Genre>();
     private String image;
 
