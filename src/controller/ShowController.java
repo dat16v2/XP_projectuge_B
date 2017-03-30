@@ -115,11 +115,17 @@ public class ShowController implements IController {
                     showRatingField.setValue((String)ratingsMap.values().toArray()[0]);
 
                     // Genre
-                    ChoiceBox showGenreField = (ChoiceBox) getScene().lookup("#showGenreField");
+                    ScrollPane genreScrollPane = (ScrollPane) getScene().lookup("#showGenreScrollPane");
+                    ListView showGenreField = (ListView) genreScrollPane.getContent();
+
                     ObservableList<String> genreObservableList = FXCollections.observableArrayList(genresMap.values());
                     showGenreField.setItems(genreObservableList);
-                    showGenreField.setValue((String)genresMap.values().toArray()[0]);
 
+                    // Actors
+                    ScrollPane actorScrollPane = (ScrollPane) getScene().lookup("#showActorScrollPane");
+                    ListView actorField = (ListView) actorScrollPane.getContent();
+                    ObservableList<String> actorsObservableList = FXCollections.observableArrayList(actorsMap.values());
+                    actorField.setItems(actorsObservableList);
                 }
                 break;
             case EDIT:
@@ -131,7 +137,6 @@ public class ShowController implements IController {
                     button.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
                         @Override
                         public void handle(ActionEvent event) {
-                            System.out.println("Trying to save show changes.");
                             Show[] shows = new Show[2]; // 0: Original, 1: Copy
                             shows[0] = show;
                             shows[1] = generateShow();
@@ -171,8 +176,6 @@ public class ShowController implements IController {
                     ListView actorField = (ListView) actorScrollPane.getContent();
                     ObservableList<String> actorsObservableList = FXCollections.observableArrayList(actorsMap.values());
                     actorField.setItems(actorsObservableList);
-
-
                 }
                 break;
         }
