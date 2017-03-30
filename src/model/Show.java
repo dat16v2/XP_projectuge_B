@@ -27,6 +27,17 @@ public class Show {
 
     }
 
+    public Show(Show show) {
+        this.showId = show.showId;
+        this.title = new String(show.title);
+        this.actorList = new HashMap<Integer, Actor>(show.actorList);
+        this.runTime = show.runTime;
+        this.ageLimit = new Rating(show.ageLimit);
+        this.genreList = new HashMap<Integer, Genre>(show.genreList);
+        this.image = new String(show.image);
+    }
+
+
 
     public int getShowId(){return showId;}
 

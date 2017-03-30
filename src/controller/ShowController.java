@@ -6,13 +6,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import model.Actor;
 import model.Show;
 
 import java.io.IOException;
 
 public class ShowController implements IController {
     private Scene scene;
-    private Show show = null;
+    private Show showField = null;
 
     @Override
     public Scene getScene() {
@@ -54,7 +55,7 @@ public class ShowController implements IController {
                 break;
             case EDIT:
                 {
-                    this.show = show;
+                    this.showField = show;
                     Button button = (Button) scene.lookup("#actionButton");
                     button.setText("Gem ændringer");
                     button.setPrefWidth(90);
@@ -62,6 +63,18 @@ public class ShowController implements IController {
                         @Override
                         public void handle(ActionEvent event) {
                             System.out.println("Trying to save show changes.");
+                            Show[] shows = new Show[2];
+                            shows[0] = showField;
+                            shows[1] = new Show(showField);
+                            shows[1].setTitle("Yee hawh..");
+                            shows[1].getAgeLimit().setName("Nihao");
+                            shows[1].getActorList().remove(2);
+                            Actor actor = new Actor();
+                            actor.setId(69);
+                            actor.setFirstName("Jakob");
+                            shows[1].getActorList().put(69, actor);
+                            shows[1].getGenreList().remove(7);
+                            DatabaseController.getInstance().startBackgroundTask(DatabaseController.Task.UPDATE_SHOW, shows);
                         }
                     });
                 }

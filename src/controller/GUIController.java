@@ -56,9 +56,9 @@ public class GUIController {
 
     public static boolean validateAddShowFields() throws IOException {
         AnchorPane ap = (AnchorPane) CreateShowController.get().getScene().lookup("#weirdAnchorPane");
-        TextField titleLabelField = (TextField) ap.lookup("#titleLabel");
-        TextField actorLabelField = (TextField) ap.lookup("#actorLabel");
-        TextField timeLabelField = (TextField) ap.lookup("#timeLabel");
+        TextField titleLabelField = (TextField) CreateShowController.get().getScene().lookup("#titleLabel");
+        TextField actorLabelField = (TextField) CreateShowController.get().getScene().lookup("#actorLabel");
+        TextField timeLabelField = (TextField) CreateShowController.get().getScene().lookup("#timeLabel");
         if (titleLabelField.getText().equals("") || actorLabelField.getText().equals("") || timeLabelField.getText().equals(""))
         {
             Alertboxes.showErrorAlertBox();

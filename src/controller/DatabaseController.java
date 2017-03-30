@@ -66,7 +66,7 @@ public class DatabaseController {
 
                     DatabaseConnection.getInstance().edit(((Show[]) payload)[0], ((Show[]) payload)[1]);
                     
-                    //MainController.get().addShow((Show) payload);
+                    MainController.get().addShow(((Show[]) payload)[1]);
                     break;
             }
         }

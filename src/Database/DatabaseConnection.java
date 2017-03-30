@@ -63,6 +63,8 @@ public class DatabaseConnection {
 
                 show = getShowDetails(show);
 
+
+
                 shows.add(show);
             }
         } catch (SQLException ex) {

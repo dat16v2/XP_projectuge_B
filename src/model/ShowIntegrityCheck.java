@@ -37,6 +37,8 @@ public class ShowIntegrityCheck extends IntegrityCheck {
         HashMap<ID, IntegrityCheckNode<TYPE>> iEL = new HashMap<ID, IntegrityCheckNode<TYPE>>();
 
         HashMap<ID, TYPE> copy = new HashMap<ID, TYPE>(c);
+        copy.putAll(o);
+
         Iterator<TYPE> it = c.values().iterator();
         while (it.hasNext()) {
             TYPE e = it.next();
@@ -44,8 +46,9 @@ public class ShowIntegrityCheck extends IntegrityCheck {
 
             IntegrityCheckNode<TYPE> icn = new IntegrityCheckNode<TYPE>(e, eName);
 
-            if (!c.containsKey(id)) {
+            if (!o.containsKey(id)) {
                 icn.setNewNode(true);
+                System.out.printf("Node %s - ID %d (TO BE ADDED)\n", icn.getElementName(), id);
             }
 
             iEL.put((ID) id, icn);
@@ -59,6 +62,7 @@ public class ShowIntegrityCheck extends IntegrityCheck {
             Object id = ((IntegrityCheckNodeAction)e).getId();
             IntegrityCheckNode<TYPE> icn = new IntegrityCheckNode<TYPE>(e, eName);
             icn.setDeleted(true);
+            System.out.printf("Node %s - ID %d (TO BE DELETED)\n", icn.getElementName(), id);
             iEL.put((ID) id, icn);
         }
 
@@ -69,23 +73,29 @@ public class ShowIntegrityCheck extends IntegrityCheck {
     private void checkShow() {
         if (!show.getTitle().equals(cShow.getTitle())) {
             icnShow.setAltered(true);
+            System.out.println("Show has been altered");
             return;
         }
 
         if (show.getRunTime() != cShow.getRunTime()) {
             icnShow.setAltered(true);
+            System.out.println("Show has been altered");
             return;
         }
 
         if (!show.getImage().equals(cShow.getImage())) {
             icnShow.setAltered(true);
+            System.out.println("Show has been altered");
         }
     }
 
     private void checkRating() {
+        // System.out.printf("%s(%d), -> %d %s\n", show.getTitle(), show.getShowId(), show.getAgeLimit().getId(), show.getAgeLimit().getName());
+        // System.out.printf("%s(%d), -> %d %s\n", cShow.getTitle(), cShow.getShowId(), show.getAgeLimit().getId(), show.getAgeLimit().getName());
         if (show.getAgeLimit().getName().equals(cShow.getAgeLimit().getName())) {
             icnRating.setAltered(false);
         }
+        System.out.println("Rating has been altered");
     }
 
     public IntegrityCheckNode<Show> getIcnShow() {
