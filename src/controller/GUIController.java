@@ -9,18 +9,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import view.Alertboxes;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class GUIController extends Component {
-
-    public static Scene addShowWindow;
+public class GUIController {
 
     public static void addShowWindow(ActionEvent actionEvent) throws IOException {
-        Parent newScene = FXMLLoader.load(Main.cl.getResource("view/addShowScene.fxml"));
-        addShowWindow = new Scene(newScene, 650, 400);
-        Main.ps.setScene(addShowWindow);
+        IController controller = new ShowController(ShowController.Action.CREATE, null);
+        Main.ps.setScene(controller.getScene());
+    }
+
+    public static void switchScene(IController controller) {
+        Main.ps.setScene(controller.getScene());
     }
 
     public static void mainWindow(ActionEvent actionEvent) throws IOException {
