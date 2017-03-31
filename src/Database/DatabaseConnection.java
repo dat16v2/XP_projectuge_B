@@ -47,7 +47,7 @@ public class DatabaseConnection {
     }
 
     public Show get(int id) {
-        Show show = null;
+        Show show = new Show();
         PreparedStatement statementGetShow;
         PreparedStatement statementGetShowActor;
         PreparedStatement statementGetShowGenre;
@@ -65,11 +65,12 @@ public class DatabaseConnection {
             result = statementGetShow.executeQuery();
 
             // Set initial show data
-            show.setShowId(id);
-            show.setTitle(result.getString(1));
-            show.setRunTime(result.getInt(2));
-            show.setImage(result.getString(3));
-
+            while (result.next()) {
+                show.setShowId(id);
+                show.setTitle(result.getString(1));
+                show.setRunTime(result.getInt(2));
+                show.setImage(result.getString(3));
+            }
             // Get actors related with show
             statementGetShowActor.setInt(1, show.getShowId());
             result = statementGetShowActor.executeQuery();
@@ -90,7 +91,7 @@ public class DatabaseConnection {
             result = statementGetShowGenre.executeQuery();
 
             // Add genres to show
-            while(result.next()) {
+            while (result.next()) {
                 Genre genre = new Genre();
 
                 genre.setId(result.getInt(2));
@@ -99,11 +100,12 @@ public class DatabaseConnection {
             }
 
             // Get age rating
-            result = statementGetShowRating.executeQuery();
-            Rating rating = new Rating();
-            rating.setName(result.getString(1));
-            rating.setId(result.getInt(2));
-
+            while (result.next()) {
+                result = statementGetShowRating.executeQuery();
+                Rating rating = new Rating();
+                rating.setName(result.getString(1));
+                rating.setId(result.getInt(2));
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
             System.exit(1);
@@ -114,6 +116,7 @@ public class DatabaseConnection {
 
     public void add(Show show) {
         PreparedStatement statementInsertShow;
+        PreparedStatement statementInsertActor;
         PreparedStatement statementInsertShowActor;
         PreparedStatement statementInsertShowGenre;
         PreparedStatement statementInsertShowRating;
@@ -127,14 +130,19 @@ public class DatabaseConnection {
 
             boolean result = statementInsertShow.execute();
 
-            if (!result) { // Handle this at some point... TODO
-                System.out.println("Uh ohh... check");
-            }
+            // Get actors so we only add unique entires
+            statementInsertActor = conn.prepareStatement("SELECT * FROM actor");
+            ResultSet resultSet = statementInsertActor.executeQuery();
 
-            // Add actors to show
+            // Add actors, and actors to show
+            statementInsertActor = conn.prepareStatement("INSERT into actor (first_name, last_name) VALUES (?,?)");
             statementInsertShowActor = conn.prepareStatement("INSERT into show_actor (id_actor, id_show) VALUES (?, ?)");
+
             for (int i = 0; i < show.getActorList().size(); i++) {
                 Actor actor = show.getActorList().get(i);
+
+                statementInsertActor.setString(1, actor.getFirstName());
+                statementInsertActor.setString(2, actor.getLastName());
 
                 statementInsertShowActor.setInt(1, actor.getId());
                 statementInsertShowActor.setInt(2, show.getShowId());
@@ -145,10 +153,6 @@ public class DatabaseConnection {
             }
 
             result = statementInsertShowActor.execute();
-
-            if (!result) { // Handle this at some point... TODO
-                System.out.println("Uh ohh...");
-            }
 
             // Add genres to show
             statementInsertShowGenre = conn.prepareStatement("INSERT into show_genre (id_genre, id_show) VALUES (?, ?)");
@@ -165,35 +169,14 @@ public class DatabaseConnection {
 
             result = statementInsertShowActor.execute();
 
-            if (!result) { // Handle this at some point... TODO
-                System.out.println("Uh ohh...");
-            }
-
             statementInsertShowRating = conn.prepareStatement("INSERT INTO show_rating (id_rating, id_show) VALUES (?, ?)");
             statementInsertShowRating.setInt(1, show.getAgeLimit().getId());
             statementInsertShowRating.setInt(2, show.getShowId());
 
             result = statementInsertShowRating.execute();
 
-            if (!result) { // Handle this at some point... TODO
-                System.out.println("Uh ohh...");
-            }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-            }
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException se) {
-
-            }
         }
     }
 
@@ -223,8 +206,9 @@ public class DatabaseConnection {
         return false;
     }
 
-    public void editShow(Show show, int ID){
+    public void editShow(Show show, int ID) {
         PreparedStatement statementEditShow;
+        PreparedStatement statementEditActor;
         PreparedStatement statementEditShowActor;
         PreparedStatement statementEditShowGenre;
         PreparedStatement statementEditShowRating;
@@ -235,15 +219,19 @@ public class DatabaseConnection {
             statementEditShow.setInt(2, show.getRunTime());
             statementEditShow.setString(3, show.getImage());
             statementEditShow.setInt(4, ID);
-
-
             boolean result = statementEditShow.execute();
 
             if (!result) { // Handle this at some point... TODO
                 System.out.println("Uh ohh...");
             }
 
-            // Add actors to show
+            // Edit actors, actors to show
+            PreparedStatement get = conn.prepareStatement("SELECT id_actor FROM show_actor WHERE id_show = ?");
+
+
+
+
+
             statementEditShowActor = conn.prepareStatement("UPDATE show_actor SET id_actor = ? WHERE id_show = ?");
             for (int i = 0; i < show.getActorList().size(); i++) {
                 Actor actor = show.getActorList().get(i);
@@ -292,20 +280,6 @@ public class DatabaseConnection {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-            } catch (SQLException ex) {
-            }
-            try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException se) {
-
-            }
         }
     }
 }
