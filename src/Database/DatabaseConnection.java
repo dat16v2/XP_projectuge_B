@@ -1,9 +1,6 @@
 package Database;
 
-import model.Actor;
-import model.Genre;
-import model.Rating;
-import model.Show;
+import model.*;
 
 import java.sql.*;
 import java.util.Collection;
@@ -45,6 +42,46 @@ public class DatabaseConnection {
             //ResultSet rs = stmt.executeQuery(sql);
         } catch (Exception ex) {
             System.out.println("Does not work." + ex);
+        }
+    }
+
+    public void reserve(Booking booking){
+        try {
+
+            String sql;
+            sql = "INSERT INTO `booking` (`id`, `name`, `phone_number`, `id_show`, `ticket_amount`) ";
+            sql += "VALUES (" + booking.getId() + ", '" + booking.getName() + "'," + booking.getPhoneNumber() + ", " +
+                    "'" + booking.getIdShow() + "'," + booking.getTicketAmount() + ");";
+            stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+
+
+            /*PreparedStatement updateStatement = conn.prepareStatement("UPDATE `show` " +
+                    "SET reserved_seats = '" + booking.getTicketAmount()+ "' " +
+                    "WHERE id = " + booking.getIdShow() + ";");
+
+            updateStatement.executeUpdate();*/
+        }
+        catch (SQLException sqle){
+
+            System.out.print("Fejl i reservation");
+
+        }finally {
+            //finally block used to close resources
+            try {
+                if (stmt != null)
+                    conn.close();
+            } catch (SQLException se) {
+
+            }// do nothing
+            try {
+                if (conn != null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+
+            }//end finally try
+
         }
     }
 

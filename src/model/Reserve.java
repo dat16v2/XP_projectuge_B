@@ -4,12 +4,13 @@ import Database.DatabaseConnection;
 
 import java.lang.reflect.Array;
 
-/**
- * Created by Søren on 24-03-2017.
- */
+
 public class Reserve {
 
 
+
+
+/*
     public Object[] smallStage = new Object[240];
     public Object[] bigStage = new Object[400];
     private static int counterNext = 0;
@@ -40,7 +41,7 @@ public class Reserve {
     }
 
     //Method used for seat reservation of specific seats ;)
-    /*public void setSeat(Integer seat) {
+    public void setSeat(Integer seat) {
 
         if(seatNumber != null) {
             System.out.println("Du kan ikke vælge en reserveret plads!!");
@@ -50,7 +51,7 @@ public class Reserve {
             counter++;
         }
 
-    }*/
+    }
 
     public String countsSeats() {
         int availbleSeats = bigStage.length - counterNext;
@@ -72,7 +73,7 @@ public class Reserve {
         setSeatNumber(bigStage);
     }
 
-    /*public boolean emptyShow(Object[] cinemaStage){
+    public boolean emptyShow(Object[] cinemaStage){
         for(int i = 0; i < cinemaStage.length; i++){
             if(cinemaStage[i] != null) {
                 break;
@@ -83,6 +84,6 @@ public class Reserve {
             }
         }
         return true;
-    }*/
-
+    }
+*/
 }

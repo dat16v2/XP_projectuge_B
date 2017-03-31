@@ -2,6 +2,7 @@ package controller;
 
 import Database.DatabaseConnection;
 import model.Actor;
+import model.Booking;
 import model.Rating;
 import model.Show;
 
@@ -14,20 +15,12 @@ public class TestMain
 {
     public static void main(String[] args)
     {
-        DatabaseConnection connection = DatabaseConnection.getInstance();
 
-        // DETTE ER ET EKSEMPEL
-        ArrayList<Actor> actors = new ArrayList<>();
-        Actor actor = new Actor();
-        actor.setId(1);
 
-        actors.add(actor);
+        Booking book = new Booking(3,"Søren", 323212222, 1, 7);
 
-        //Rating
+        DatabaseConnection dbconnect = new DatabaseConnection();
 
-        //Show show = new Show(1, "Rogue One", actors, 180, "18+", "horror", "lightsaberlul");
-
-        //connection.add(show);
-        //connection.deleteShow(show);
+        dbconnect.reserve(book);
     }
 }

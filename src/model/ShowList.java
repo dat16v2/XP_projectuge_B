@@ -1,4 +1,4 @@
-package model;
+/*package model;
 
 import Database.DatabaseConnection;
 
@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-/**
- * Created by x on 17/03/2017.
- */
+
 public class ShowList
 {
     ArrayList<Show> listOfShows = new ArrayList<Show>();
@@ -41,3 +39,4 @@ public class ShowList
     }
 
 }
+*/

@@ -19,6 +19,7 @@ public class Booking {
         this.ticketAmount = ticketAmount;
     }
 
+
     public int getId() {
         return id;
     }
